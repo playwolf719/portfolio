@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://portfolio-resume-d1gmfdmb33453c869.webapps.tcloudbase.com/sitemap.xml

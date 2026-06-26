@@ -520,9 +520,6 @@ button.text-link {
   transform: scaleX(1);
 }
 
-.metric:not(:last-child) {
-  border-right: 1px solid var(--line);
-}
 
 .metric strong {
   display: block;
@@ -627,10 +624,10 @@ button.text-link {
 .contact h2 {
   max-width: 1060px;
   margin: 0;
-  font-size: clamp(36px, 3.65vw, 52px);
+  font-size: clamp(34px, 3.15vw, 46px);
   font-weight: 720;
   letter-spacing: -0.055em;
-  line-height: 1.14;
+  line-height: 1.16;
 }
 
 .section-heading > p,
@@ -1111,17 +1108,23 @@ button.text-link {
   align-items: center;
   min-height: 150px;
   padding: 17px 18px;
+  border: 1px solid transparent;
+  border-radius: 18px;
   color: var(--graphite);
   text-align: center;
   transition:
     color 260ms ease,
+    border-color 260ms ease,
     background-color 260ms ease,
+    box-shadow 320ms ease,
     transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .technology-item:hover {
+  border-color: var(--line);
   color: var(--accent);
   background: #fff;
+  box-shadow: 0 22px 44px rgba(16, 23, 38, 0.09);
   transform: translateY(-9px);
 }
 
@@ -1415,10 +1418,6 @@ button.text-link {
   .metric {
     min-height: 156px;
     padding: 28px 12px;
-  }
-
-  .metric:nth-child(2) {
-    border-right: 0;
   }
 
   .metric:nth-child(n + 3) {

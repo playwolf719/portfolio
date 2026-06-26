@@ -4,6 +4,7 @@ import {
   Cloud,
   Code,
   Database,
+  Gauge,
   GitBranch,
   Stack,
 } from "@phosphor-icons/react";
@@ -23,5 +24,5 @@ export const technologyIcons = {
   bigdata: ChartLineUp,
   storage: Database,
   cloud: Cloud,
-  observability: ChartLineUp,
+  observability: Gauge,
 };

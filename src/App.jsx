@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -16,8 +16,14 @@ import { AnimatedNumber } from "./components/AnimatedNumber.jsx";
 import { LanguageSwitcher } from "./components/LanguageSwitcher.jsx";
 import { MagneticLink } from "./components/MagneticLink.jsx";
 import { KineticHeading, PageProgress, TiltSurface } from "./components/MotionSystem.jsx";
-import { OrbitScene } from "./components/OrbitScene.jsx";
 import { Reveal } from "./components/Reveal.jsx";
+
+// The 3D orbital scene pulls in Three.js (the bundle's heaviest dependency).
+// It is a decorative, aria-hidden background, so we defer it off the critical
+// path: hero text and content paint immediately, the scene streams in after.
+const OrbitScene = lazy(() =>
+  import("./components/OrbitScene.jsx").then((m) => ({ default: m.OrbitScene })),
+);
 import { capabilityIcons, technologyIcons } from "./data.js";
 
 const EMAIL = "playwolf719@163.com";
@@ -104,7 +110,9 @@ function Hero() {
 
   return (
     <section className="hero" id="home">
-      <OrbitScene />
+      <Suspense fallback={null}>
+        <OrbitScene />
+      </Suspense>
       <div className="hero__content">
         <motion.p
           className="hero__eyebrow"
