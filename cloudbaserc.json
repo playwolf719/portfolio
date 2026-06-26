@@ -1,0 +1,12 @@
+{
+  "version": "2.0",
+  "envId": "resume-d1gmfdmb33453c869",
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "app": {
+    "serviceName": "portfolio",
+    "framework": "vite",
+    "installCommand": "npm install",
+    "buildCommand": "vite build",
+    "outputDir": "./dist"
+  }
+}

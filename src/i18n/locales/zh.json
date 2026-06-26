@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "title": "Benjamin Deng · AI 平台架构师",
+    "description": "Benjamin Deng - AI 平台架构师，专注 AI Agent、多智能体协作、大数据与企业级 AI Workflow。"
+  },
+  "header": {
+    "brandMark": "B/D",
+    "brandText": "Benjamin Deng · AI 平台架构师",
+    "homeAriaLabel": "返回首页",
+    "openNav": "打开导航",
+    "closeNav": "关闭导航",
+    "mainNavAriaLabel": "主导航"
+  },
+  "nav": {
+    "items": [
+      { "id": "home", "label": "首页" },
+      { "id": "capabilities", "label": "能力" },
+      { "id": "work", "label": "项目" },
+      { "id": "experience", "label": "经历" },
+      { "id": "contact", "label": "联系" }
+    ]
+  },
+  "language": {
+    "label": "语言",
+    "zh": "中文",
+    "en": "EN"
+  },
+  "hero": {
+    "eyebrow": "AI PLATFORM · AGENT SYSTEMS · DATA INFRASTRUCTURE",
+    "titleLine1": "Benjamin Deng",
+    "titleLine2": "AI 平台架构师",
+    "introLine1": "构建可扩展、可观测、可进化的智能协作系统，",
+    "introLine2": "让 AI 真正落地业务，创造确定性的价值。",
+    "tags": ["AI 平台", "多智能体协作", "RAG / Agent", "大数据", "云原生"],
+    "emailCopied": "邮箱已复制",
+    "scrollCue": "SCROLL",
+    "scrollAriaLabel": "向下浏览"
+  },
+  "metrics": {
+    "ariaLabel": "关键成果",
+    "items": [
+      { "value": 10, "suffix": "亿+", "label": "数据湖规模", "detail": "离线、实时与特征数据统一治理" },
+      { "value": 30, "suffix": "%+", "label": "算力成本下降", "detail": "GPU 调度、弹性伸缩与资源预测" },
+      { "value": 35, "suffix": "%", "label": "模型上线提速", "detail": "训练、评估、部署全链路标准化" },
+      { "value": 50, "suffix": "%+", "label": "任务费用节省", "detail": "并行推理与工作流调度优化" }
+    ]
+  },
+  "capabilities": {
+    "kicker": "我能为企业构建",
+    "heading": "面向业务的 AI 基础设施与智能能力",
+    "description": "从模型工程、智能体协作到大规模数据与调度，提供可持续演进的系统能力。",
+    "items": [
+      {
+        "id": "ai-platform",
+        "title": "AI 平台",
+        "subtitle": "把模型能力变成稳定、可治理的平台",
+        "bullets": [
+          "多模型接入与统一管理（LLM Proxy）",
+          "模型评估、监控与成本统计",
+          "Prompt 自动化与评估闭环",
+          "可观测、可审计、可治理"
+        ]
+      },
+      {
+        "id": "multi-agent",
+        "title": "多智能体协作",
+        "subtitle": "从检索增强到复杂任务自动编排",
+        "bullets": [
+          "RAG / SFT / RLHF / ReAct",
+          "LangGraph 状态机与工具链",
+          "任务规划、执行与评估闭环",
+          "企业级 Toolchain 与插件生态"
+        ]
+      },
+      {
+        "id": "enterprise-workflow",
+        "title": "企业 AI Workflow",
+        "subtitle": "把 AI 能力嵌入关键业务链路",
+        "bullets": [
+          "数据湖、实时计算与向量检索",
+          "自动化流程与多模态处理",
+          "云原生与 GPU 弹性调度",
+          "降本提效、稳定可靠落地"
+        ]
+      }
+    ]
+  },
+  "work": {
+    "kicker": "精选系统",
+    "heading": "把复杂技术变成可量化的业务结果",
+    "description": "聚焦可复用的平台能力，不堆砌概念；每个系统都以稳定性、效率与成本为验收标准。",
+    "items": [
+      {
+        "index": "01",
+        "title": "AI 平台与多智能体中台",
+        "summary": "融合 RAG、SFT、RLHF 与 LangGraph 状态机，构建 Planner + ReAct 双层智能体架构；同时落地 Prompt Auto-Evolution 闭环。",
+        "result": "复杂任务稳定编排，人工调参成本显著降低",
+        "tags": ["RAG", "LangGraph", "RLHF", "Toolchain"]
+      },
+      {
+        "index": "02",
+        "title": "端到端 AI 视频生产系统",
+        "summary": "把脚本生成、任务编排、模型推理、GPU 弹性调度与自动剪辑整合为一条可观测的生产链路。",
+        "result": "综合算力成本下降 30%+，吞吐显著提升",
+        "tags": ["LLM", "KEDA", "GPU", "Workflow"]
+      },
+      {
+        "index": "03",
+        "title": "10 亿级 AI 数据湖",
+        "summary": "使用 Flink + Hudi 构建离线与实时湖仓，统一简历、特征、行为与实验数据，支撑检索和模型训练。",
+        "result": "线上服务压力下降，存储开支降低 33%",
+        "tags": ["Flink", "Hudi", "Spark", "Kafka"]
+      },
+      {
+        "index": "04",
+        "title": "模型工程平台与 LLM Proxy",
+        "summary": "基于 Argo Workflow 建设训练、评估、存储、部署平台，并统一管理多种 LLM 的效果、调用与成本。",
+        "result": "模型上线速度提升约 35%",
+        "tags": ["Argo", "Kubeflow", "K8s", "LLM Proxy"]
+      }
+    ]
+  },
+  "experience": {
+    "kicker": "关键经历",
+    "heading": "在真实业务中构建与验证",
+    "items": [
+      {
+        "period": "目前",
+        "company": "苏州某 AI 公司",
+        "role": "AI 平台负责人",
+        "detail": "负责 AI 平台架构与应用研发，推进模型管理、多智能体协作与企业级 AI Workflow 落地。"
+      },
+      {
+        "period": "2022.04 — 2024.08",
+        "company": "苏州氦图人工智能科技有限公司（硅谷 AI HR）",
+        "role": "机器学习平台负责人",
+        "detail": "负责数据湖、大数据平台与机器学习平台建设，连续多年绩效优异。"
+      },
+      {
+        "period": "2018.07 — 2022.04",
+        "company": "科大讯飞苏州研究院",
+        "role": "系统负责人",
+        "detail": "牵头通用后端组件与标准化工程体系，提升稳定性与研发效率，获研究院年度优秀员工。"
+      },
+      {
+        "period": "2017.03 — 2018.06",
+        "company": "字节跳动汽车垂直业务（懂车帝）",
+        "role": "高级后端工程师",
+        "detail": "负责后端服务与项目管理，保障系统稳定迭代，获部门“无畏挑战者奖”。"
+      },
+      {
+        "period": "2015.11 — 2017.03",
+        "company": "腾讯广告平台部",
+        "role": "后端工程师",
+        "detail": "建设活动性能监测平台，参与腾讯广告风铃系统的互动活动开发。"
+      },
+      {
+        "period": "2015.07",
+        "company": "百度商务搜索架构部",
+        "role": "后端实习生",
+        "detail": "参与百度凤巢系统业务层代码维护与上线。"
+      }
+    ]
+  },
+  "technology": {
+    "kicker": "技术栈概览",
+    "items": [
+      { "id": "lang", "label": "语言 / 框架", "value": "Python / Golang / Java\nFastAPI / Django / go-zero" },
+      { "id": "ai", "label": "AI 生态", "value": "LangGraph / RAG\nSFT / RLHF / Triton" },
+      { "id": "bigdata", "label": "大数据", "value": "Spark / Flink / Hudi\nHadoop / Kafka" },
+      { "id": "storage", "label": "数据存储", "value": "MySQL / PostgreSQL\nRedis / MongoDB / Neo4j" },
+      { "id": "cloud", "label": "云原生", "value": "Docker / Kubernetes\nArgo / KEDA / GPU 调度" },
+      { "id": "observability", "label": "可观测性", "value": "ELK / Prometheus\nGrafana / Xhprof" }
+    ]
+  },
+  "contact": {
+    "kicker": "开启合作",
+    "heading": "一起构建更智能的未来",
+    "description": "如果你正在寻找长期合作伙伴，或希望把 AI 能力真正落到复杂业务中，我们可以聊聊。",
+    "emailButton": "发送邮件",
+    "emailCopied": "邮箱已复制",
+    "githubButton": "查看 GitHub",
+    "footerTagline": "用工程能力，让 AI 落地更简单、更可靠。"
+  }
+}
