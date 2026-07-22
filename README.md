@@ -62,6 +62,10 @@ npm run preview
 ## ☁️ 部署
 
 项目通过 [cloudbaserc.json](cloudbaserc.json) 配置部署到腾讯云 CloudBase：构建命令 `vite build`，产物目录 `dist/`。
+```
+tcb app deploy --framework vite -e resume-d1gmfdmb33453c869
+
+```
 
 ## 📝 自定义内容
 

@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Benjamin Deng · AI 平台架构师",
-    "description": "Benjamin Deng - AI 平台架构师，专注 AI Agent、多智能体协作、大数据与企业级 AI Workflow。"
+    "description": "Benjamin Deng - AI 平台架构师，专注多智能体、Code Agent、模型工程、大数据与企业级 AI Workflow。"
   },
   "header": {
     "brandMark": "B/D",
@@ -31,7 +31,7 @@
     "titleLine2": "AI 平台架构师",
     "introLine1": "构建可扩展、可观测、可进化的智能协作系统，",
     "introLine2": "让 AI 真正落地业务，创造确定性的价值。",
-    "tags": ["AI 平台", "多智能体协作", "RAG / Agent", "大数据", "云原生"],
+    "tags": ["AI 平台", "多智能体", "Code Agent", "大数据", "云原生"],
     "emailCopied": "邮箱已复制",
     "scrollCue": "SCROLL",
     "scrollAriaLabel": "向下浏览"
@@ -39,7 +39,7 @@
   "metrics": {
     "ariaLabel": "关键成果",
     "items": [
-      { "value": 10, "suffix": "亿+", "label": "数据湖规模", "detail": "离线、实时与特征数据统一治理" },
+      { "value": 10, "suffix": "亿", "label": "数据湖规模", "detail": "离线、实时与特征数据统一治理" },
       { "value": 30, "suffix": "%+", "label": "算力成本下降", "detail": "GPU 调度、弹性伸缩与资源预测" },
       { "value": 35, "suffix": "%", "label": "模型上线提速", "detail": "训练、评估、部署全链路标准化" },
       { "value": 50, "suffix": "%+", "label": "任务费用节省", "detail": "并行推理与工作流调度优化" }
@@ -52,24 +52,24 @@
     "items": [
       {
         "id": "ai-platform",
-        "title": "AI 平台",
-        "subtitle": "把模型能力变成稳定、可治理的平台",
+        "title": "AI 平台与模型工程",
+        "subtitle": "把模型能力变成可评估、可治理的平台",
         "bullets": [
-          "多模型接入与统一管理（LLM Proxy）",
-          "模型评估、监控与成本统计",
-          "Prompt 自动化与评估闭环",
-          "可观测、可审计、可治理"
+          "模型实验、训练、评估、存储与部署全链路",
+          "LLM Proxy 统一接入 OpenAI / Azure / DeepSeek",
+          "模型效果、调用量与成本监控",
+          "Prompt Auto-Evolution 自动反馈与持续迭代"
         ]
       },
       {
         "id": "multi-agent",
-        "title": "多智能体协作",
-        "subtitle": "从检索增强到复杂任务自动编排",
+        "title": "Agent 系统与 AI Coding",
+        "subtitle": "从复杂任务编排到可审计的编码智能体",
         "bullets": [
-          "RAG / SFT / RLHF / ReAct",
-          "LangGraph 状态机与工具链",
-          "任务规划、执行与评估闭环",
-          "企业级 Toolchain 与插件生态"
+          "RAG / SFT / RLHF / LangGraph 状态机",
+          "Planner 决策层 + ReAct 执行层",
+          "代码检索、命令执行、补丁修改与多轮纠错",
+          "Tool Calling、三级权限审批与全链路审计"
         ]
       },
       {
@@ -77,10 +77,10 @@
         "title": "企业 AI Workflow",
         "subtitle": "把 AI 能力嵌入关键业务链路",
         "bullets": [
-          "数据湖、实时计算与向量检索",
-          "自动化流程与多模态处理",
-          "云原生与 GPU 弹性调度",
-          "降本提效、稳定可靠落地"
+          "Agno / Dify、Deep Research 与 PPT Agent",
+          "数据湖、实时计算、知识图谱与向量检索",
+          "AI 视频生产、多模态处理与任务编排",
+          "Kubernetes / KEDA GPU 弹性调度"
         ]
       }
     ]
@@ -93,30 +93,44 @@
       {
         "index": "01",
         "title": "AI 平台与多智能体中台",
-        "summary": "融合 RAG、SFT、RLHF 与 LangGraph 状态机，构建 Planner + ReAct 双层智能体架构；同时落地 Prompt Auto-Evolution 闭环。",
-        "result": "复杂任务稳定编排，人工调参成本显著降低",
-        "tags": ["RAG", "LangGraph", "RLHF", "Toolchain"]
+        "summary": "融合 RAG、SFT 与 LangGraph 状态机，构建 Planner + ReAct 双层智能体架构；落地 Prompt Auto-Evolution，并基于 Agno、Dify 沉淀 Deep Research、PPT Agent 与多模态能力。",
+        "result": "复杂任务稳定运行，客服响应效率提升，人工调参成本显著降低",
+        "tags": ["LangGraph", "RAG", "Agno", "Dify"]
       },
       {
         "index": "02",
+        "title": "桌面级 Code Agent 工作台",
+        "summary": "基于 Tauri / Rust、Node.js Sidecar 与 Cline SDK 构建安全隔离的编码智能体，设计版本化 JSONL 协议、流式任务交互与三级工具审批机制。",
+        "result": "打通代码检索、命令执行、补丁修改、多轮纠错与多模型接入闭环",
+        "tags": ["Tauri", "Rust", "Cline SDK", "Tool Approval"]
+      },
+      {
+        "index": "03",
         "title": "端到端 AI 视频生产系统",
         "summary": "把脚本生成、任务编排、模型推理、GPU 弹性调度与自动剪辑整合为一条可观测的生产链路。",
         "result": "综合算力成本下降 30%+，吞吐显著提升",
         "tags": ["LLM", "KEDA", "GPU", "Workflow"]
       },
       {
-        "index": "03",
+        "index": "04",
         "title": "10 亿级 AI 数据湖",
-        "summary": "使用 Flink + Hudi 构建离线与实时湖仓，统一简历、特征、行为与实验数据，支撑检索和模型训练。",
-        "result": "线上服务压力下降，存储开支降低 33%",
-        "tags": ["Flink", "Hudi", "Spark", "Kafka"]
+        "summary": "使用 Flink + Hudi 构建离线与实时简历池，统一特征 KV、用户行为与实验数据；以 Codis + Pika 优化特征存储，以 MongoDB 支撑非热点数据访问。",
+        "result": "线上服务压力下降，离线池开支降低 33%，特征存储内存节省 80%",
+        "tags": ["Flink", "Hudi", "Pika", "MongoDB"]
       },
       {
-        "index": "04",
+        "index": "05",
         "title": "模型工程平台与 LLM Proxy",
-        "summary": "基于 Argo Workflow 建设训练、评估、存储、部署平台，并统一管理多种 LLM 的效果、调用与成本。",
+        "summary": "借鉴 Kubeflow 理念，基于 Argo Workflow 建设实验、训练、存储、评估与部署平台；通过 LLM Proxy 统一监控 OpenAI、Azure OpenAI、DeepSeek 等模型的效果与成本。",
         "result": "模型上线速度提升约 35%",
         "tags": ["Argo", "Kubeflow", "K8s", "LLM Proxy"]
+      },
+      {
+        "index": "06",
+        "title": "大数据与 AI 任务调度平台",
+        "summary": "基于 Amazon EMR、Kubernetes 与 Argo Workflow 构建批流一体任务平台，并以 Jupyter + Livy + Spark 支撑数据预处理、特征计算与探索实验。",
+        "result": "特征工程提效至少 30%，推理与多媒体任务费用节省 50%+",
+        "tags": ["Spark", "Flink", "Argo", "KEDA"]
       }
     ]
   },
@@ -127,8 +141,8 @@
       {
         "period": "目前",
         "company": "苏州某 AI 公司",
-        "role": "AI 平台负责人",
-        "detail": "负责 AI 平台架构与应用研发，推进模型管理、多智能体协作与企业级 AI Workflow 落地。"
+        "role": "平台负责人",
+        "detail": "牵头 AI 平台架构设计与应用开发，推进多智能体、Code Agent、模型工程与企业级 AI Workflow 落地。"
       },
       {
         "period": "2022.04 — 2024.08",
@@ -140,7 +154,7 @@
         "period": "2018.07 — 2022.04",
         "company": "科大讯飞苏州研究院",
         "role": "系统负责人",
-        "detail": "牵头通用后端组件与标准化工程体系，提升稳定性与研发效率，获研究院年度优秀员工。"
+        "detail": "牵头项目后端开发与上线部署，构建并推广高性能通用组件与标准化工程体系，提升系统稳定性与研发效率；获研究院年度优秀员工。"
       },
       {
         "period": "2017.03 — 2018.06",
@@ -165,12 +179,12 @@
   "technology": {
     "kicker": "技术栈概览",
     "items": [
-      { "id": "lang", "label": "语言 / 框架", "value": "Python / Golang / Java\nFastAPI / Django / go-zero" },
-      { "id": "ai", "label": "AI 生态", "value": "LangGraph / RAG\nSFT / RLHF / Triton" },
-      { "id": "bigdata", "label": "大数据", "value": "Spark / Flink / Hudi\nHadoop / Kafka" },
-      { "id": "storage", "label": "数据存储", "value": "MySQL / PostgreSQL\nRedis / MongoDB / Neo4j" },
-      { "id": "cloud", "label": "云原生", "value": "Docker / Kubernetes\nArgo / KEDA / GPU 调度" },
-      { "id": "observability", "label": "可观测性", "value": "ELK / Prometheus\nGrafana / Xhprof" }
+      { "id": "lang", "label": "后端 / 语言", "value": "Python / Golang / Java / TypeScript\nDjango / FastAPI / Flask / go-zero" },
+      { "id": "ai", "label": "AI / Agent", "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent" },
+      { "id": "bigdata", "label": "数据 / 中间件", "value": "Spark / Flink / Hudi / Hadoop\nKafka / RabbitMQ / Elasticsearch" },
+      { "id": "storage", "label": "存储 / 检索", "value": "MySQL / PostgreSQL / Redis\nMongoDB / Neo4j / 向量数据库" },
+      { "id": "cloud", "label": "云原生", "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / 阿里云" },
+      { "id": "observability", "label": "前端 / AI 工具", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]
   },
   "contact": {

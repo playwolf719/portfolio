@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "Benjamin Deng · AI Architect",
-    "description": "Benjamin Deng - AI Architect focused on AI agents, multi-agent collaboration, big data, and enterprise AI workflows."
+    "description": "Benjamin Deng - AI Architect focused on multi-agent systems, coding agents, model engineering, big data, and enterprise AI workflows."
   },
   "header": {
     "brandMark": "B/D",
@@ -31,7 +31,7 @@
     "titleLine2": "AI Architect",
     "introLine1": "Building scalable, observable, evolvable intelligent collaboration systems,",
     "introLine2": "so AI delivers real, measurable value in production.",
-    "tags": ["AI Platform", "Multi-Agent", "RAG / Agent", "Big Data", "Cloud Native"],
+    "tags": ["AI Platform", "Multi-Agent", "Code Agent", "Big Data", "Cloud Native"],
     "emailCopied": "Email copied",
     "scrollCue": "SCROLL",
     "scrollAriaLabel": "Scroll down"
@@ -39,7 +39,7 @@
   "metrics": {
     "ariaLabel": "Key results",
     "items": [
-      { "value": 10, "suffix": "B+", "label": "Data Lake Scale", "detail": "Unified governance for offline, real-time, and feature data" },
+      { "value": 1, "suffix": "B", "label": "Data Lake Scale", "detail": "Unified governance for offline, real-time, and feature data" },
       { "value": 30, "suffix": "%+", "label": "Compute Cost Reduction", "detail": "GPU scheduling, autoscaling, and resource forecasting" },
       { "value": 35, "suffix": "%", "label": "Faster Model Launches", "detail": "Standardized training, evaluation, and deployment pipeline" },
       { "value": 50, "suffix": "%+", "label": "Task Cost Savings", "detail": "Parallel inference and workflow scheduling optimization" }
@@ -52,24 +52,24 @@
     "items": [
       {
         "id": "ai-platform",
-        "title": "AI Platform",
-        "subtitle": "Turning model capability into a stable, governable platform",
+        "title": "AI Platform & Model Engineering",
+        "subtitle": "Turning model capability into an evaluable, governable platform",
         "bullets": [
-          "Unified multi-model access (LLM Proxy)",
-          "Model evaluation, monitoring, and cost tracking",
-          "Automated prompt iteration and evaluation loops",
-          "Observable, auditable, governable"
+          "End-to-end model experimentation, training, evaluation, storage, and deployment",
+          "LLM Proxy for OpenAI, Azure OpenAI, and DeepSeek",
+          "Model quality, usage, and cost monitoring",
+          "Prompt Auto-Evolution with automated feedback and iteration"
         ]
       },
       {
         "id": "multi-agent",
-        "title": "Multi-Agent Collaboration",
-        "subtitle": "From retrieval augmentation to complex task orchestration",
+        "title": "Agent Systems & AI Coding",
+        "subtitle": "From complex orchestration to auditable coding agents",
         "bullets": [
-          "RAG / SFT / RLHF / ReAct",
-          "LangGraph state machines and tool chains",
-          "Task planning, execution, and evaluation loops",
-          "Enterprise-grade toolchain and plugin ecosystem"
+          "RAG / SFT / RLHF / LangGraph state machines",
+          "Planner decision layer + ReAct execution layer",
+          "Code search, command execution, patching, and multi-turn correction",
+          "Tool calling, three-tier approvals, and end-to-end auditability"
         ]
       },
       {
@@ -77,10 +77,10 @@
         "title": "Enterprise AI Workflow",
         "subtitle": "Embedding AI capability into critical business paths",
         "bullets": [
-          "Data lake, real-time compute, and vector retrieval",
-          "Automated pipelines and multimodal processing",
-          "Cloud-native and elastic GPU scheduling",
-          "Reliable, cost-effective production rollout"
+          "Agno / Dify, Deep Research, and PPT Agent",
+          "Data lakes, real-time compute, knowledge graphs, and vector retrieval",
+          "AI video production, multimodal processing, and task orchestration",
+          "Elastic GPU scheduling with Kubernetes / KEDA"
         ]
       }
     ]
@@ -93,30 +93,44 @@
       {
         "index": "01",
         "title": "AI Platform & Multi-Agent Hub",
-        "summary": "Combined RAG, SFT, RLHF, and LangGraph state machines into a Planner + ReAct dual-layer agent architecture, with a closed-loop Prompt Auto-Evolution system.",
-        "result": "Stable orchestration of complex tasks; significantly reduced manual tuning cost",
-        "tags": ["RAG", "LangGraph", "RLHF", "Toolchain"]
+        "summary": "Combined RAG, SFT, and LangGraph state machines into a Planner + ReAct architecture; delivered Prompt Auto-Evolution and reusable Deep Research, PPT Agent, and multimodal capabilities with Agno and Dify.",
+        "result": "Stable complex-task execution, faster customer support responses, and significantly lower manual tuning cost",
+        "tags": ["LangGraph", "RAG", "Agno", "Dify"]
       },
       {
         "index": "02",
+        "title": "Desktop Code Agent Workbench",
+        "summary": "Built a sandboxed coding agent with Tauri / Rust, a Node.js sidecar, and the Cline SDK, using a versioned JSONL protocol, streaming task interaction, and three-tier tool approvals.",
+        "result": "Closed the loop across code search, command execution, patching, multi-turn correction, and multi-model access",
+        "tags": ["Tauri", "Rust", "Cline SDK", "Tool Approval"]
+      },
+      {
+        "index": "03",
         "title": "End-to-End AI Video Production System",
         "summary": "Integrated script generation, task orchestration, model inference, elastic GPU scheduling, and automated editing into one observable production pipeline.",
         "result": "Overall compute cost down 30%+, throughput significantly improved",
         "tags": ["LLM", "KEDA", "GPU", "Workflow"]
       },
       {
-        "index": "03",
+        "index": "04",
         "title": "Billion-Scale AI Data Lake",
-        "summary": "Built offline and real-time lakehouse with Flink + Hudi, unifying resume, feature, behavioral, and experiment data to power retrieval and model training.",
-        "result": "Reduced online service load; storage cost down 33%",
-        "tags": ["Flink", "Hudi", "Spark", "Kafka"]
+        "summary": "Built offline and real-time resume pools with Flink + Hudi, unified feature KV, behavior, and experiment data, optimized feature storage with Codis + Pika, and served non-hot data from MongoDB.",
+        "result": "Reduced online load, cut offline-pool cost by 33%, and saved 80% of feature-storage memory",
+        "tags": ["Flink", "Hudi", "Pika", "MongoDB"]
       },
       {
-        "index": "04",
+        "index": "05",
         "title": "Model Engineering Platform & LLM Proxy",
-        "summary": "Built training, evaluation, storage, and deployment platform on Argo Workflow, with unified management of performance, calls, and cost across multiple LLMs.",
+        "summary": "Built a Kubeflow-inspired platform on Argo Workflow for experiments, training, storage, evaluation, and deployment; used LLM Proxy to monitor quality and cost across OpenAI, Azure OpenAI, and DeepSeek.",
         "result": "Model launch speed improved by ~35%",
         "tags": ["Argo", "Kubeflow", "K8s", "LLM Proxy"]
+      },
+      {
+        "index": "06",
+        "title": "Big Data & AI Task Platform",
+        "summary": "Built a unified batch and streaming task platform on Amazon EMR, Kubernetes, and Argo Workflow, with Jupyter + Livy + Spark for data preparation, feature engineering, and exploration.",
+        "result": "At least 30% faster feature work and 50%+ lower cost for inference and media tasks",
+        "tags": ["Spark", "Flink", "Argo", "KEDA"]
       }
     ]
   },
@@ -127,8 +141,8 @@
       {
         "period": "Present",
         "company": "AI Company, Suzhou",
-        "role": "Head of AI Platform",
-        "detail": "Own AI platform architecture and application development, driving model management, multi-agent collaboration, and enterprise AI workflow adoption."
+        "role": "Platform Lead",
+        "detail": "Lead AI platform architecture and application development across multi-agent systems, coding agents, model engineering, and enterprise AI workflows."
       },
       {
         "period": "Apr 2022 — Aug 2024",
@@ -140,7 +154,7 @@
         "period": "Jul 2018 — Apr 2022",
         "company": "iFLYTEK Suzhou Research Institute",
         "role": "System Lead",
-        "detail": "Led general-purpose backend components and standardized engineering systems, improving stability and R&D efficiency; awarded Institute Employee of the Year."
+        "detail": "Led backend development and production delivery, building and promoting high-performance shared components and standardized engineering practices; awarded Institute Employee of the Year."
       },
       {
         "period": "Mar 2017 — Jun 2018",
@@ -165,12 +179,12 @@
   "technology": {
     "kicker": "Tech Stack Overview",
     "items": [
-      { "id": "lang", "label": "Languages / Frameworks", "value": "Python / Golang / Java\nFastAPI / Django / go-zero" },
-      { "id": "ai", "label": "AI Ecosystem", "value": "LangGraph / RAG\nSFT / RLHF / Triton" },
-      { "id": "bigdata", "label": "Big Data", "value": "Spark / Flink / Hudi\nHadoop / Kafka" },
-      { "id": "storage", "label": "Data Storage", "value": "MySQL / PostgreSQL\nRedis / MongoDB / Neo4j" },
-      { "id": "cloud", "label": "Cloud Native", "value": "Docker / Kubernetes\nArgo / KEDA / GPU Scheduling" },
-      { "id": "observability", "label": "Observability", "value": "ELK / Prometheus\nGrafana / Xhprof" }
+      { "id": "lang", "label": "Backend / Languages", "value": "Python / Golang / Java / TypeScript\nDjango / FastAPI / Flask / go-zero" },
+      { "id": "ai", "label": "AI / Agents", "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent" },
+      { "id": "bigdata", "label": "Data / Middleware", "value": "Spark / Flink / Hudi / Hadoop\nKafka / RabbitMQ / Elasticsearch" },
+      { "id": "storage", "label": "Storage / Retrieval", "value": "MySQL / PostgreSQL / Redis\nMongoDB / Neo4j / Vector DB" },
+      { "id": "cloud", "label": "Cloud Native", "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / Alibaba Cloud" },
+      { "id": "observability", "label": "Frontend / AI Tooling", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]
   },
   "contact": {
