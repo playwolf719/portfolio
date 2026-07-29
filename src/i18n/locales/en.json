@@ -68,8 +68,8 @@
         "bullets": [
           "RAG / SFT / RLHF / LangGraph state machines",
           "Planner decision layer + ReAct execution layer",
-          "Code search, command execution, patching, and multi-turn correction",
-          "Tool calling, three-tier approvals, and end-to-end auditability"
+          "Cline Core runtime, code search, command execution, and multi-turn correction",
+          "Docker sandbox scheduling, three-tier approvals, and end-to-end auditability"
         ]
       },
       {
@@ -100,9 +100,9 @@
       {
         "index": "02",
         "title": "Desktop Code Agent Workbench",
-        "summary": "Built a sandboxed coding agent with Tauri / Rust, a Node.js sidecar, and the Cline SDK, using a versioned JSONL protocol, streaming task interaction, and three-tier tool approvals.",
-        "result": "Closed the loop across code search, command execution, patching, multi-turn correction, and multi-model access",
-        "tags": ["Tauri", "Rust", "Cline SDK", "Tool Approval"]
+        "summary": "Built a desktop workbench with Tauri / Rust, a Node.js sidecar, and the Cline SDK; the server runtime uses Cline Core, an Agent Gateway, WebSocket, Redis, Celery, and Docker for task scheduling, sandbox orchestration, and real-time events.",
+        "result": "Closed the loop across code search, execution, patching, correction, and multi-model access, with approval, reconnect, and automatic container reclamation.",
+        "tags": ["Cline Core", "Docker Sandbox", "Celery", "Tool Approval"]
       },
       {
         "index": "03",
@@ -179,10 +179,10 @@
   "technology": {
     "kicker": "Tech Stack Overview",
     "items": [
-      { "id": "lang", "label": "Backend / Languages", "value": "Python / Golang / Java / TypeScript\nDjango / FastAPI / Flask / go-zero" },
+      { "id": "lang", "label": "Backend / Languages", "value": "Python / Golang / PHP / Java / TypeScript\nDjango / FastAPI / Flask / go-zero / Express" },
       { "id": "ai", "label": "AI / Agents", "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent" },
-      { "id": "bigdata", "label": "Data / Middleware", "value": "Spark / Flink / Hudi / Hadoop\nKafka / RabbitMQ / Elasticsearch" },
-      { "id": "storage", "label": "Storage / Retrieval", "value": "MySQL / PostgreSQL / Redis\nMongoDB / Neo4j / Vector DB" },
+      { "id": "bigdata", "label": "Data / Middleware", "value": "Spark / Flink / Hudi / Hadoop / Hive\nKafka / RabbitMQ / Elasticsearch / Celery" },
+      { "id": "storage", "label": "Storage / Retrieval", "value": "MySQL / PostgreSQL / Redis / HBase\nMongoDB / Neo4j / Vector DB" },
       { "id": "cloud", "label": "Cloud Native", "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / Alibaba Cloud" },
       { "id": "observability", "label": "Frontend / AI Tooling", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]

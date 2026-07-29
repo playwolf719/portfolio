@@ -68,8 +68,8 @@
         "bullets": [
           "RAG / SFT / RLHF / LangGraph 状态机",
           "Planner 决策层 + ReAct 执行层",
-          "代码检索、命令执行、补丁修改与多轮纠错",
-          "Tool Calling、三级权限审批与全链路审计"
+          "Cline Core Runtime、代码检索、命令执行与多轮纠错",
+          "Docker 沙箱调度、三级权限审批与全链路审计"
         ]
       },
       {
@@ -100,9 +100,9 @@
       {
         "index": "02",
         "title": "桌面级 Code Agent 工作台",
-        "summary": "基于 Tauri / Rust、Node.js Sidecar 与 Cline SDK 构建安全隔离的编码智能体，设计版本化 JSONL 协议、流式任务交互与三级工具审批机制。",
-        "result": "打通代码检索、命令执行、补丁修改、多轮纠错与多模型接入闭环",
-        "tags": ["Tauri", "Rust", "Cline SDK", "Tool Approval"]
+        "summary": "基于 Tauri / Rust、Node.js Sidecar 与 Cline SDK 构建桌面工作台；服务端以 Cline Core、Agent Gateway、WebSocket、Redis、Celery 与 Docker 进行多任务调度、沙箱编排及实时事件流转。",
+        "result": "打通代码检索、命令执行、补丁修改、多轮纠错与多模型接入，并支持人工审批、断线重连和容器自动回收",
+        "tags": ["Cline Core", "Docker Sandbox", "Celery", "Tool Approval"]
       },
       {
         "index": "03",
@@ -179,10 +179,10 @@
   "technology": {
     "kicker": "技术栈概览",
     "items": [
-      { "id": "lang", "label": "后端 / 语言", "value": "Python / Golang / Java / TypeScript\nDjango / FastAPI / Flask / go-zero" },
+      { "id": "lang", "label": "后端 / 语言", "value": "Python / Golang / PHP / Java / TypeScript\nDjango / FastAPI / Flask / go-zero / Express" },
       { "id": "ai", "label": "AI / Agent", "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent" },
-      { "id": "bigdata", "label": "数据 / 中间件", "value": "Spark / Flink / Hudi / Hadoop\nKafka / RabbitMQ / Elasticsearch" },
-      { "id": "storage", "label": "存储 / 检索", "value": "MySQL / PostgreSQL / Redis\nMongoDB / Neo4j / 向量数据库" },
+      { "id": "bigdata", "label": "数据 / 中间件", "value": "Spark / Flink / Hudi / Hadoop / Hive\nKafka / RabbitMQ / Elasticsearch / Celery" },
+      { "id": "storage", "label": "存储 / 检索", "value": "MySQL / PostgreSQL / Redis / HBase\nMongoDB / Neo4j / 向量数据库" },
       { "id": "cloud", "label": "云原生", "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / 阿里云" },
       { "id": "observability", "label": "前端 / AI 工具", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]
