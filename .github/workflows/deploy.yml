@@ -20,8 +20,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    env:
-      npm_config_cache: ${{ runner.temp }}/.npm
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -34,6 +32,8 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+        env:
+          npm_config_cache: ${{ runner.temp }}/.npm
 
       - name: Build
         run: npm run build
