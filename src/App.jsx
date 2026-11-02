@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,6 +10,7 @@ import {
   List,
   Minus,
   Plus,
+  TelevisionSimple,
   X,
 } from "@phosphor-icons/react";
 import { AnimatedNumber } from "./components/AnimatedNumber.jsx";
@@ -24,16 +25,16 @@ import { Reveal } from "./components/Reveal.jsx";
 const OrbitScene = lazy(() =>
   import("./components/OrbitScene.jsx").then((m) => ({ default: m.OrbitScene })),
 );
-import { capabilityIcons, technologyIcons } from "./data.js";
+import { capabilityIcons, profileLinks, technologyIcons } from "./data.js";
 
-const EMAIL = "playwolf719@163.com";
-const GITHUB = "https://github.com/playwolf719";
+const { email: EMAIL, github: GITHUB, bilibili: BILIBILI } = profileLinks;
 
 function Header() {
   const { t } = useTranslation();
   const navItems = t("nav.items", { returnObjects: true });
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("home");
+  const menuButtonRef = useRef(null);
 
   useEffect(() => {
     const sections = navItems
@@ -53,27 +54,35 @@ function Header() {
   }, [navItems]);
 
   return (
-    <header className="site-header">
+    <header className="site-header" onKeyDown={(event) => {
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }}>
       <a className="brand" href="#home" aria-label={t("header.homeAriaLabel")}>
         <span className="brand__mark">{t("header.brandMark")}</span>
         <span className="brand__text">{t("header.brandText")}</span>
+        <span className="brand__name">{t("hero.titleLine1")}</span>
       </a>
 
       <div className="header__actions">
         <LanguageSwitcher />
 
         <button
+          ref={menuButtonRef}
           className="menu-toggle"
           type="button"
           aria-label={open ? t("header.closeNav") : t("header.openNav")}
           aria-expanded={open}
+          aria-controls="main-navigation"
           onClick={() => setOpen((value) => !value)}
         >
           {open ? <X size={22} /> : <List size={22} />}
         </button>
       </div>
 
-      <nav className={`site-nav ${open ? "is-open" : ""}`} aria-label={t("header.mainNavAriaLabel")}>
+      <nav id="main-navigation" className={`site-nav ${open ? "is-open" : ""}`} aria-label={t("header.mainNavAriaLabel")}>
         {navItems.map((item) => (
           <a
             key={item.id}
@@ -166,7 +175,11 @@ function Hero() {
           </button>
           <a className="text-link" href={GITHUB} target="_blank" rel="noreferrer">
             <GithubLogo size={18} weight="fill" />
-            github.com/playwolf719
+            GitHub
+          </a>
+          <a className="text-link" href={BILIBILI} target="_blank" rel="noreferrer">
+            <TelevisionSimple size={19} />
+            {t("hero.bilibiliLabel")}
           </a>
         </motion.div>
       </div>
@@ -203,6 +216,7 @@ function Metrics() {
 function Capabilities() {
   const { t } = useTranslation();
   const capabilities = t("capabilities.items", { returnObjects: true });
+  const principles = t("capabilities.engineering.principles", { returnObjects: true });
 
   return (
     <section className="section section--capabilities" id="capabilities">
@@ -234,6 +248,17 @@ function Capabilities() {
             );
           })}
         </div>
+        <Reveal className="engineering-note">
+          <div>
+            <h3>{t("capabilities.engineering.title")}</h3>
+            <p>{t("capabilities.engineering.description")}</p>
+          </div>
+          <ul>
+            {principles.map((principle) => (
+              <li key={principle}><Check size={15} aria-hidden="true" />{principle}</li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );
@@ -242,6 +267,7 @@ function Capabilities() {
 function Work() {
   const { t } = useTranslation();
   const selectedWork = t("work.items", { returnObjects: true });
+  const foundations = t("work.foundations.items", { returnObjects: true });
   const [expanded, setExpanded] = useState(0);
 
   return (
@@ -264,20 +290,27 @@ function Work() {
                   className={`work-item ${isExpanded ? "is-expanded" : ""}`}
                   type="button"
                   aria-expanded={isExpanded}
+                  aria-labelledby={`project-${item.index}-title`}
+                  aria-controls={`project-${item.index}-details`}
+                  aria-describedby={`${isExpanded ? `project-${item.index}-details ` : ""}project-${item.index}-result`}
                   onClick={() => setExpanded(isExpanded ? -1 : index)}
                 >
                   <span className="work-item__index">{item.index}</span>
                   <span className="work-item__main">
-                    <span className="work-item__title">{item.title}</span>
-                    <span className="work-item__summary">{item.summary}</span>
-                    <span className="work-item__tags">
-                      {item.tags.map((tag) => (
-                        <span key={tag}>{tag}</span>
-                      ))}
+                    <span className="work-item__title" id={`project-${item.index}-title`}>{item.title}</span>
+                    <span className="work-item__details" id={`project-${item.index}-details`} aria-hidden={!isExpanded}>
+                      <span className="work-item__details-inner">
+                        <span className="work-item__summary">{item.summary}</span>
+                        <span className="work-item__tags">
+                          {item.tags.map((tag) => (
+                            <span key={tag}>{tag}</span>
+                          ))}
+                        </span>
+                      </span>
                     </span>
                   </span>
-                  <span className="work-item__result">
-                    <small>RESULT</small>
+                  <span className="work-item__result" id={`project-${item.index}-result`}>
+                    <small>{t("work.resultLabel")}</small>
                     {item.result}
                   </span>
                   <span className="work-item__toggle" aria-hidden="true">
@@ -288,6 +321,23 @@ function Work() {
             );
           })}
         </div>
+        <div className="foundations" aria-labelledby="foundations-title">
+          <Reveal><h3 id="foundations-title">{t("work.foundations.heading")}</h3></Reveal>
+          <div className="foundations__grid">
+            {foundations.map((item) => (
+              <Reveal as="article" className="foundation" key={item.id}>
+                <span className="foundation__evidence">{item.evidence}</span>
+                <h4>{item.title}</h4>
+                <p>{item.description}</p>
+                {item.id === "openks" && (
+                  <a className="text-link" href={profileLinks.openks} target="_blank" rel="noreferrer">
+                    {t("work.foundations.openSourceLink")}<ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                )}
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -296,6 +346,7 @@ function Work() {
 function Experience() {
   const { t } = useTranslation();
   const experience = t("experience.items", { returnObjects: true });
+  const education = t("experience.education.items", { returnObjects: true });
 
   useEffect(() => {
     const update = () => {
@@ -341,6 +392,18 @@ function Experience() {
             </Reveal>
           ))}
         </div>
+        <Reveal className="education">
+          <h3>{t("experience.education.heading")}</h3>
+          <div className="education__items">
+            {education.map((item) => (
+              <div key={item.period}>
+                <strong>{item.school}</strong>
+                <span>{item.degree}</span>
+                <small>{item.period}</small>
+              </div>
+            ))}
+          </div>
+        </Reveal>
       </div>
     </section>
   );
@@ -413,6 +476,11 @@ function Contact() {
             {t("contact.githubButton")}
             <ArrowUpRight size={17} />
           </a>
+          <a className="contact__social text-link" href={BILIBILI} target="_blank" rel="noreferrer">
+            <TelevisionSimple size={20} aria-hidden="true" />
+            {t("contact.bilibiliButton")}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
         </Reveal>
       </div>
 
@@ -420,6 +488,32 @@ function Contact() {
         <span>© {new Date().getFullYear()} {t("header.brandText")}</span>
         <span>{t("contact.footerTagline")}</span>
       </footer>
+    </section>
+  );
+}
+
+function Sharing() {
+  const { t } = useTranslation();
+
+  return (
+    <section className="sharing" id="sharing" aria-labelledby="sharing-title">
+      <div className="content-shell sharing__inner">
+        <Reveal className="sharing__copy">
+          <span className="section-kicker">{t("sharing.kicker")}</span>
+          <h2 id="sharing-title">{t("sharing.heading")}</h2>
+          <p>{t("sharing.description")}</p>
+        </Reveal>
+        <Reveal>
+          <a className="sharing__link" href={BILIBILI} target="_blank" rel="noreferrer">
+            <span className="sharing__icon" aria-hidden="true"><TelevisionSimple size={42} weight="duotone" /></span>
+            <span className="sharing__destination">
+              <strong>Bilibili</strong>
+              <span>{t("sharing.linkLabel")}</span>
+            </span>
+            <ArrowUpRight size={24} aria-hidden="true" />
+          </a>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -444,6 +538,7 @@ export function App() {
         <Work />
         <Experience />
         <TechnologyIndex />
+        <Sharing />
         <Contact />
       </main>
     </>

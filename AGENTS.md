@@ -15,3 +15,4 @@ When implementing from a selected generated mock, treat that image as the source
 - Include rich but purposeful motion: hero entrance, pointer parallax, continuous orbit motion, scroll reveals, metric counters, and an animated career timeline.
 - Motion outside the hero must be clearly visible and feel more cinematic: kinetic headings, scroll progress, interactive depth, project scan feedback, pulsing timeline nodes, and animated technology icons. Preserve readability and reduced-motion support.
 - Use “Benjamin Deng” everywhere the portfolio displays or describes the owner’s name, and “B/D” for the monogram; do not use the previous Chinese name or monogram.
+- Include the owner's Bilibili presence (`https://space.bilibili.com/86627040`) alongside professional contact links. Ground any channel descriptions, featured videos, and audience metrics in supplied or verified information.

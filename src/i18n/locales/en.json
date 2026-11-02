@@ -17,6 +17,7 @@
       { "id": "capabilities", "label": "Capabilities" },
       { "id": "work", "label": "Work" },
       { "id": "experience", "label": "Experience" },
+      { "id": "sharing", "label": "Media" },
       { "id": "contact", "label": "Contact" }
     ]
   },
@@ -33,6 +34,7 @@
     "introLine2": "so AI delivers real, measurable value in production.",
     "tags": ["AI Platform", "Multi-Agent", "Code Agent", "Big Data", "Cloud Native"],
     "emailCopied": "Email copied",
+    "bilibiliLabel": "Bilibili",
     "scrollCue": "SCROLL",
     "scrollAriaLabel": "Scroll down"
   },
@@ -58,7 +60,7 @@
           "End-to-end model experimentation, training, evaluation, storage, and deployment",
           "LLM Proxy for OpenAI, Azure OpenAI, and DeepSeek",
           "Model quality, usage, and cost monitoring",
-          "Prompt Auto-Evolution with automated feedback and iteration"
+          "Prompt Auto-Evolution: generation, scoring, policy updates, and convergence"
         ]
       },
       {
@@ -83,9 +85,15 @@
           "Elastic GPU scheduling with Kubernetes / KEDA"
         ]
       }
-    ]
+    ],
+    "engineering": {
+      "title": "AI workflows shaped by Harness Engineering",
+      "description": "Understand the boundaries of Vibe Coding and build verifiable, replayable, observable development workflows that combine rapid exploration with engineering reliability.",
+      "principles": ["Verifiable", "Replayable", "Observable"]
+    }
   },
   "work": {
+    "resultLabel": "Result",
     "kicker": "Selected Systems",
     "heading": "Turning complex technology into measurable business outcomes",
     "description": "Focused on reusable platform capability, not buzzwords — every system is judged on stability, efficiency, and cost.",
@@ -100,8 +108,8 @@
       {
         "index": "02",
         "title": "Desktop Code Agent Workbench",
-        "summary": "Built a desktop workbench with Tauri / Rust, a Node.js sidecar, and the Cline SDK; the server runtime uses Cline Core, an Agent Gateway, WebSocket, Redis, Celery, and Docker for task scheduling, sandbox orchestration, and real-time events.",
-        "result": "Closed the loop across code search, execution, patching, correction, and multi-model access, with approval, reconnect, and automatic container reclamation.",
+        "summary": "Built a Tauri / Rust desktop workbench with a Node.js sidecar and the Cline SDK, a versioned JSONL protocol, streaming interaction, and three-tier tool approvals. The server combines Cline Core, an Agent Gateway, WebSocket, Redis, Celery, and Docker for task scheduling, sandbox orchestration, and worker registration and authentication.",
+        "result": "Code search, execution, patching, and multi-turn correction with human approval, reconnect, isolated execution, and automatic container reclamation.",
         "tags": ["Cline Core", "Docker Sandbox", "Celery", "Tool Approval"]
       },
       {
@@ -132,7 +140,31 @@
         "result": "At least 30% faster feature work and 50%+ lower cost for inference and media tasks",
         "tags": ["Spark", "Flink", "Argo", "KEDA"]
       }
-    ]
+    ],
+    "foundations": {
+      "heading": "Engineering foundations behind the AI systems",
+      "openSourceLink": "Explore OpenKS on GitHub",
+      "items": [
+        {
+          "id": "recommendation",
+          "evidence": "6,000 QPS / P99 30 ms",
+          "title": "UGC recommendation service",
+          "description": "Built a reusable recommendation service with Redis sorted sets, gevent, and caching, maintaining consistent tail latency under peak traffic."
+        },
+        {
+          "id": "search",
+          "evidence": "P99 ≈ 1 ms",
+          "title": "Search suggestion service",
+          "description": "Combined Go, tries, and heaps for prefix suggestions and trending searches, with asynchronous data refresh and in-process caching."
+        },
+        {
+          "id": "openks",
+          "evidence": "OpenKS",
+          "title": "Open-source contributions",
+          "description": "Integrated app, model, and data modules and knowledge-completion algorithms, providing runnable examples from training through testing."
+        }
+      ]
+    }
   },
   "experience": {
     "kicker": "Key Experience",
@@ -174,7 +206,14 @@
         "role": "Backend Intern",
         "detail": "Maintained and shipped business-layer code for Baidu's Phoenix Nest system."
       }
-    ]
+    ],
+    "education": {
+      "heading": "Education",
+      "items": [
+        { "school": "Beijing University of Posts and Telecommunications", "degree": "Master’s · Electronic Science and Technology", "period": "Sep 2013 — Mar 2016" },
+        { "school": "Beijing University of Posts and Telecommunications", "degree": "Bachelor’s · Electronic Information Science and Technology", "period": "Sep 2009 — Jul 2013" }
+      ]
+    }
   },
   "technology": {
     "kicker": "Tech Stack Overview",
@@ -187,6 +226,12 @@
       { "id": "observability", "label": "Frontend / AI Tooling", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]
   },
+  "sharing": {
+    "kicker": "Beyond the portfolio",
+    "heading": "Find me on Bilibili",
+    "description": "For another side of me beyond this portfolio, visit my personal space on Bilibili.",
+    "linkLabel": "Visit my personal space"
+  },
   "contact": {
     "kicker": "Let's Collaborate",
     "heading": "Let's build a smarter future together",
@@ -194,6 +239,7 @@
     "emailButton": "Send Email",
     "emailCopied": "Email copied",
     "githubButton": "View GitHub",
+    "bilibiliButton": "Find me on Bilibili, too",
     "footerTagline": "Making AI simpler and more reliable to ship, with solid engineering."
   }
 }

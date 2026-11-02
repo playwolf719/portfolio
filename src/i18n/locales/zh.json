@@ -17,6 +17,7 @@
       { "id": "capabilities", "label": "能力" },
       { "id": "work", "label": "项目" },
       { "id": "experience", "label": "经历" },
+      { "id": "sharing", "label": "自媒体" },
       { "id": "contact", "label": "联系" }
     ]
   },
@@ -33,6 +34,7 @@
     "introLine2": "让 AI 真正落地业务，创造确定性的价值。",
     "tags": ["AI 平台", "多智能体", "Code Agent", "大数据", "云原生"],
     "emailCopied": "邮箱已复制",
+    "bilibiliLabel": "Bilibili · 自媒体",
     "scrollCue": "SCROLL",
     "scrollAriaLabel": "向下浏览"
   },
@@ -58,7 +60,7 @@
           "模型实验、训练、评估、存储与部署全链路",
           "LLM Proxy 统一接入 OpenAI / Azure / DeepSeek",
           "模型效果、调用量与成本监控",
-          "Prompt Auto-Evolution 自动反馈与持续迭代"
+          "Prompt Auto-Evolution：生成、评分、策略更新与多轮收敛"
         ]
       },
       {
@@ -83,9 +85,15 @@
           "Kubernetes / KEDA GPU 弹性调度"
         ]
       }
-    ]
+    ],
+    "engineering": {
+      "title": "以 Harness Engineering 思维构建 AI 工程流程",
+      "description": "理解 Vibe Coding 的应用边界，将 AI 编程能力融入可验证、可回放、可观测的研发流程，让探索效率与工程可靠性共同提升。",
+      "principles": ["可验证", "可回放", "可观测"]
+    }
   },
   "work": {
+    "resultLabel": "项目成果",
     "kicker": "精选系统",
     "heading": "把复杂技术变成可量化的业务结果",
     "description": "聚焦可复用的平台能力，不堆砌概念；每个系统都以稳定性、效率与成本为验收标准。",
@@ -100,8 +108,8 @@
       {
         "index": "02",
         "title": "桌面级 Code Agent 工作台",
-        "summary": "基于 Tauri / Rust、Node.js Sidecar 与 Cline SDK 构建桌面工作台；服务端以 Cline Core、Agent Gateway、WebSocket、Redis、Celery 与 Docker 进行多任务调度、沙箱编排及实时事件流转。",
-        "result": "打通代码检索、命令执行、补丁修改、多轮纠错与多模型接入，并支持人工审批、断线重连和容器自动回收",
+        "summary": "基于 Tauri / Rust、Node.js Sidecar 与 Cline SDK 构建桌面工作台，设计版本化 JSONL 协议、流式交互与三级工具审批；服务端通过 Cline Core、Agent Gateway、WebSocket、Redis、Celery 与 Docker 实现任务调度、沙箱编排和 Worker 注册认证。",
+        "result": "覆盖代码检索、执行、补丁修改与多轮纠错，支持人工审批、断线重连、安全隔离和容器自动回收",
         "tags": ["Cline Core", "Docker Sandbox", "Celery", "Tool Approval"]
       },
       {
@@ -132,7 +140,31 @@
         "result": "特征工程提效至少 30%，推理与多媒体任务费用节省 50%+",
         "tags": ["Spark", "Flink", "Argo", "KEDA"]
       }
-    ]
+    ],
+    "foundations": {
+      "heading": "支撑 AI 系统的工程积累",
+      "openSourceLink": "查看 OpenKS 项目",
+      "items": [
+        {
+          "id": "recommendation",
+          "evidence": "6,000 QPS / P99 30 ms",
+          "title": "通用列表推荐系统",
+          "description": "基于 Redis 有序集合、gevent 与缓存组件构建 UGC 推荐服务，在峰值流量下保持稳定的尾部延迟。"
+        },
+        {
+          "id": "search",
+          "evidence": "P99 ≈ 1 ms",
+          "title": "搜索推荐词服务",
+          "description": "以 Golang、字典树与堆实现前缀词和热门搜索，结合异步数据同步与进程内缓存优化响应速度。"
+        },
+        {
+          "id": "openks",
+          "evidence": "OpenKS",
+          "title": "开源项目贡献",
+          "description": "参与 app、model、data 模块融合，集成知识补全算法，提供可执行样例并打通训练到测试的完整链路。"
+        }
+      ]
+    }
   },
   "experience": {
     "kicker": "关键经历",
@@ -174,7 +206,14 @@
         "role": "后端实习生",
         "detail": "参与百度凤巢系统业务层代码维护与上线。"
       }
-    ]
+    ],
+    "education": {
+      "heading": "教育背景",
+      "items": [
+        { "school": "北京邮电大学", "degree": "电子科学与技术 · 硕士", "period": "2013.09 — 2016.03" },
+        { "school": "北京邮电大学", "degree": "电子信息科学与技术 · 本科", "period": "2009.09 — 2013.07" }
+      ]
+    }
   },
   "technology": {
     "kicker": "技术栈概览",
@@ -187,6 +226,12 @@
       { "id": "observability", "label": "前端 / AI 工具", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
     ]
   },
+  "sharing": {
+    "kicker": "自媒体",
+    "heading": "在 Bilibili 继续交流",
+    "description": "作品集之外，也欢迎来我的 Bilibili 个人空间逛逛。",
+    "linkLabel": "访问我的个人空间"
+  },
   "contact": {
     "kicker": "开启合作",
     "heading": "一起构建更智能的未来",
@@ -194,6 +239,7 @@
     "emailButton": "发送邮件",
     "emailCopied": "邮箱已复制",
     "githubButton": "查看 GitHub",
+    "bilibiliButton": "也可以在 Bilibili 找到我",
     "footerTagline": "用工程能力，让 AI 落地更简单、更可靠。"
   }
 }
