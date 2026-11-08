@@ -13,6 +13,7 @@ export const profileLinks = {
   email: "playwolf719@163.com",
   github: "https://github.com/playwolf719",
   bilibili: "https://space.bilibili.com/86627040",
+  youtube: "https://www.youtube.com/@playwolf719",
   openks: "https://github.com/ZJU-OpenKS/OpenKS",
 };
 

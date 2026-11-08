@@ -12,6 +12,7 @@ import {
   Plus,
   TelevisionSimple,
   X,
+  YoutubeLogo,
 } from "@phosphor-icons/react";
 import { AnimatedNumber } from "./components/AnimatedNumber.jsx";
 import { LanguageSwitcher } from "./components/LanguageSwitcher.jsx";
@@ -27,7 +28,7 @@ const OrbitScene = lazy(() =>
 );
 import { capabilityIcons, profileLinks, technologyIcons } from "./data.js";
 
-const { email: EMAIL, github: GITHUB, bilibili: BILIBILI } = profileLinks;
+const { email: EMAIL, github: GITHUB, bilibili: BILIBILI, youtube: YOUTUBE } = profileLinks;
 
 function Header() {
   const { t } = useTranslation();
@@ -180,6 +181,10 @@ function Hero() {
           <a className="text-link" href={BILIBILI} target="_blank" rel="noreferrer">
             <TelevisionSimple size={19} />
             {t("hero.bilibiliLabel")}
+          </a>
+          <a className="text-link" href={YOUTUBE} target="_blank" rel="noreferrer">
+            <YoutubeLogo size={19} />
+            {t("hero.youtubeLabel")}
           </a>
         </motion.div>
       </div>
@@ -481,6 +486,11 @@ function Contact() {
             {t("contact.bilibiliButton")}
             <ArrowUpRight size={15} aria-hidden="true" />
           </a>
+          <a className="contact__social text-link" href={YOUTUBE} target="_blank" rel="noreferrer">
+            <YoutubeLogo size={20} aria-hidden="true" />
+            {t("contact.youtubeButton")}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
         </Reveal>
       </div>
 
@@ -509,6 +519,14 @@ function Sharing() {
             <span className="sharing__destination">
               <strong>Bilibili</strong>
               <span>{t("sharing.linkLabel")}</span>
+            </span>
+            <ArrowUpRight size={24} aria-hidden="true" />
+          </a>
+          <a className="sharing__link" href={YOUTUBE} target="_blank" rel="noreferrer">
+            <span className="sharing__icon" aria-hidden="true"><YoutubeLogo size={42} weight="duotone" /></span>
+            <span className="sharing__destination">
+              <strong>YouTube</strong>
+              <span>{t("sharing.youtubeLinkLabel")}</span>
             </span>
             <ArrowUpRight size={24} aria-hidden="true" />
           </a>

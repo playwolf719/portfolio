@@ -13,12 +13,30 @@
   },
   "nav": {
     "items": [
-      { "id": "home", "label": "Home" },
-      { "id": "capabilities", "label": "Capabilities" },
-      { "id": "work", "label": "Work" },
-      { "id": "experience", "label": "Experience" },
-      { "id": "sharing", "label": "Media" },
-      { "id": "contact", "label": "Contact" }
+      {
+        "id": "home",
+        "label": "Home"
+      },
+      {
+        "id": "capabilities",
+        "label": "Capabilities"
+      },
+      {
+        "id": "work",
+        "label": "Work"
+      },
+      {
+        "id": "experience",
+        "label": "Experience"
+      },
+      {
+        "id": "sharing",
+        "label": "Media"
+      },
+      {
+        "id": "contact",
+        "label": "Contact"
+      }
     ]
   },
   "language": {
@@ -30,21 +48,48 @@
     "eyebrow": "AI PLATFORM · AGENT SYSTEMS · DATA INFRASTRUCTURE",
     "titleLine1": "Benjamin Deng",
     "titleLine2": "AI Architect",
-    "introLine1": "Building scalable, observable, evolvable intelligent collaboration systems,",
-    "introLine2": "so AI delivers real, measurable value in production.",
-    "tags": ["AI Platform", "Multi-Agent", "Code Agent", "Big Data", "Cloud Native"],
+    "introLine1": "From high-throughput services and data lakes to AI platforms and coding agents,",
+    "introLine2": "bringing AI into production through system architecture and engineering.",
+    "tags": [
+      "AI Platform",
+      "Multi-Agent",
+      "Code Agent",
+      "Big Data",
+      "Cloud Native"
+    ],
     "emailCopied": "Email copied",
     "bilibiliLabel": "Bilibili",
     "scrollCue": "SCROLL",
-    "scrollAriaLabel": "Scroll down"
+    "scrollAriaLabel": "Scroll down",
+    "youtubeLabel": "YouTube"
   },
   "metrics": {
     "ariaLabel": "Key results",
     "items": [
-      { "value": 1, "suffix": "B", "label": "Data Lake Scale", "detail": "Unified governance for offline, real-time, and feature data" },
-      { "value": 30, "suffix": "%+", "label": "Compute Cost Reduction", "detail": "GPU scheduling, autoscaling, and resource forecasting" },
-      { "value": 35, "suffix": "%", "label": "Faster Model Launches", "detail": "Standardized training, evaluation, and deployment pipeline" },
-      { "value": 50, "suffix": "%+", "label": "Task Cost Savings", "detail": "Parallel inference and workflow scheduling optimization" }
+      {
+        "value": 1,
+        "suffix": "B",
+        "label": "Data Lake Scale",
+        "detail": "Offline and real-time resume pools, features, behavior, and experiment data"
+      },
+      {
+        "value": 30,
+        "suffix": "%+",
+        "label": "Compute Cost Reduction",
+        "detail": "GPU scheduling, autoscaling, and resource forecasting"
+      },
+      {
+        "value": 35,
+        "suffix": "%",
+        "label": "Faster Model Launches",
+        "detail": "Approximately 35% faster launches through the model management platform"
+      },
+      {
+        "value": 50,
+        "suffix": "%+",
+        "label": "Task Cost Savings",
+        "detail": "Optimized scheduling for PDF parsing, inference, and media tasks"
+      }
     ]
   },
   "capabilities": {
@@ -68,10 +113,10 @@
         "title": "Agent Systems & AI Coding",
         "subtitle": "From complex orchestration to auditable coding agents",
         "bullets": [
-          "RAG / SFT / RLHF / LangGraph state machines",
+          "RAG, LangGraph, multi-agent orchestration, and dynamic tool calling",
           "Planner decision layer + ReAct execution layer",
           "Cline Core runtime, code search, command execution, and multi-turn correction",
-          "Docker sandbox scheduling, three-tier approvals, and end-to-end auditability"
+          "Docker sandbox scheduling, three-tier tool approvals, and execution isolation"
         ]
       },
       {
@@ -89,7 +134,11 @@
     "engineering": {
       "title": "AI workflows shaped by Harness Engineering",
       "description": "Understand the boundaries of Vibe Coding and build verifiable, replayable, observable development workflows that combine rapid exploration with engineering reliability.",
-      "principles": ["Verifiable", "Replayable", "Observable"]
+      "principles": [
+        "Verifiable",
+        "Replayable",
+        "Observable"
+      ]
     }
   },
   "work": {
@@ -101,44 +150,74 @@
       {
         "index": "01",
         "title": "AI Platform & Multi-Agent Hub",
-        "summary": "Combined RAG, SFT, and LangGraph state machines into a Planner + ReAct architecture; delivered Prompt Auto-Evolution and reusable Deep Research, PPT Agent, and multimodal capabilities with Agno and Dify.",
-        "result": "Stable complex-task execution, faster customer support responses, and significantly lower manual tuning cost",
-        "tags": ["LangGraph", "RAG", "Agno", "Dify"]
+        "summary": "Built an enterprise multi-agent platform with LangGraph, Agno, and Dify, combining RAG, SFT, Planner-ReAct orchestration, and dynamic tool calling. Delivered Deep Research, PPT Agent, and multimodal capabilities, plus an RLHF-inspired Prompt Auto-Evolution loop for generation, scoring, feedback, and policy updates.",
+        "result": "Improved complex-task handling and customer support efficiency, with substantially less manual prompt tuning",
+        "tags": [
+          "LangGraph",
+          "RAG",
+          "Agno",
+          "Dify"
+        ]
       },
       {
         "index": "02",
-        "title": "Desktop Code Agent Workbench",
+        "title": "Desktop & Server Code Agent Infrastructure",
         "summary": "Built a Tauri / Rust desktop workbench with a Node.js sidecar and the Cline SDK, a versioned JSONL protocol, streaming interaction, and three-tier tool approvals. The server combines Cline Core, an Agent Gateway, WebSocket, Redis, Celery, and Docker for task scheduling, sandbox orchestration, and worker registration and authentication.",
-        "result": "Code search, execution, patching, and multi-turn correction with human approval, reconnect, isolated execution, and automatic container reclamation.",
-        "tags": ["Cline Core", "Docker Sandbox", "Celery", "Tool Approval"]
+        "result": "Code search, execution, patching, multi-turn correction, and multiple models, with human approval, reconnect, isolated execution, and container reclamation",
+        "tags": [
+          "Cline Core",
+          "Docker Sandbox",
+          "Celery",
+          "Tool Approval"
+        ]
       },
       {
         "index": "03",
         "title": "End-to-End AI Video Production System",
-        "summary": "Integrated script generation, task orchestration, model inference, elastic GPU scheduling, and automated editing into one observable production pipeline.",
+        "summary": "Led an end-to-end pipeline for LLM script generation, task orchestration, inference, KEDA-driven elastic GPU scheduling, and automated editing. Combined cost optimization and resource forecasting to support large-scale concurrent video generation.",
         "result": "Overall compute cost down 30%+, throughput significantly improved",
-        "tags": ["LLM", "KEDA", "GPU", "Workflow"]
+        "tags": [
+          "LLM",
+          "KEDA",
+          "GPU",
+          "Workflow"
+        ]
       },
       {
         "index": "04",
         "title": "Billion-Scale AI Data Lake",
         "summary": "Built offline and real-time resume pools with Flink + Hudi, unified feature KV, behavior, and experiment data, optimized feature storage with Codis + Pika, and served non-hot data from MongoDB.",
         "result": "Reduced online load, cut offline-pool cost by 33%, and saved 80% of feature-storage memory",
-        "tags": ["Flink", "Hudi", "Pika", "MongoDB"]
+        "tags": [
+          "Flink",
+          "Hudi",
+          "Pika",
+          "MongoDB"
+        ]
       },
       {
         "index": "05",
         "title": "Model Engineering Platform & LLM Proxy",
         "summary": "Built a Kubeflow-inspired platform on Argo Workflow for experiments, training, storage, evaluation, and deployment; used LLM Proxy to monitor quality and cost across OpenAI, Azure OpenAI, and DeepSeek.",
         "result": "Model launch speed improved by ~35%",
-        "tags": ["Argo", "Kubeflow", "K8s", "LLM Proxy"]
+        "tags": [
+          "Argo",
+          "Kubeflow",
+          "K8s",
+          "LLM Proxy"
+        ]
       },
       {
         "index": "06",
         "title": "Big Data & AI Task Platform",
-        "summary": "Built a unified batch and streaming task platform on Amazon EMR, Kubernetes, and Argo Workflow, with Jupyter + Livy + Spark for data preparation, feature engineering, and exploration.",
+        "summary": "Built batch and streaming task scheduling on Amazon EMR, Kubernetes, and Argo Workflow, with Jupyter + Livy + Spark for data preparation and exploration. Combined KEDA GPU scheduling with multiprocessing for PDF parsing, inference, and ffmpeg media tasks.",
         "result": "At least 30% faster feature work and 50%+ lower cost for inference and media tasks",
-        "tags": ["Spark", "Flink", "Argo", "KEDA"]
+        "tags": [
+          "Spark",
+          "Flink",
+          "Argo",
+          "KEDA"
+        ]
       }
     ],
     "foundations": {
@@ -149,7 +228,7 @@
           "id": "recommendation",
           "evidence": "6,000 QPS / P99 30 ms",
           "title": "UGC recommendation service",
-          "description": "Built a reusable recommendation service with Redis sorted sets, gevent, and caching, maintaining consistent tail latency under peak traffic."
+          "description": "Built automotive UGC recommendations with Redis sorted sets, gevent, and caching, achieving P99 of 30 ms at peak 6,000 QPS. Developed feeds with Bloom-filter deduplication, history backfill, HOT TOP K, fallback, and automatic degradation."
         },
         {
           "id": "search",
@@ -162,6 +241,24 @@
           "evidence": "OpenKS",
           "title": "Open-source contributions",
           "description": "Integrated app, model, and data modules and knowledge-completion algorithms, providing runnable examples from training through testing."
+        },
+        {
+          "id": "knowledge-qa",
+          "evidence": "50%+ lower response time",
+          "title": "Knowledge-graph Q&A for children",
+          "description": "Built Q&A services with Nginx, Lua, uWSGI, and Beego. Reduced average response time through request routing and POST caching, with hot-swappable trie suggestions, rate limiting, Bloom filters, null caching, and optimized multi-key reads."
+        },
+        {
+          "id": "logging",
+          "evidence": "Kubernetes · Real-time logs",
+          "title": "Annotation logs & behavior analysis",
+          "description": "Collected node-level annotation logs with Filebeat DaemonSets, relayed through Kafka, aggregated with Logstash, and indexed in Elasticsearch to analyze annotation behavior and improve the user experience."
+        },
+        {
+          "id": "campaigns",
+          "evidence": "Campaigns · 10,000 QPS",
+          "title": "Campaign components & performance monitoring",
+          "description": "Built reusable PV/UV, voting, points, red-packet, and live-comment components. Red-packet components ran at 10,000 QPS and 100 concurrent requests per machine. Built online campaign profiling with Xhprof and Flume + Kafka + Spark Streaming."
         }
       ]
     }
@@ -186,13 +283,13 @@
         "period": "Jul 2018 — Apr 2022",
         "company": "iFLYTEK Suzhou Research Institute",
         "role": "System Lead",
-        "detail": "Led backend development and production delivery, building and promoting high-performance shared components and standardized engineering practices; awarded Institute Employee of the Year."
+        "detail": "Led backend development and production delivery, building high-performance shared components and standardized engineering practices. Promoted single-responsibility and KISS principles, automation, and knowledge documentation; awarded Institute Employee of the Year."
       },
       {
         "period": "Mar 2017 — Jun 2018",
         "company": "ByteDance Auto Vertical (Dongchedi)",
         "role": "Senior Backend Engineer",
-        "detail": "Owned backend services and project management, ensuring stable iteration; awarded the department's \"Fearless Challenger\" award."
+        "detail": "Developed and optimized backend architecture and service modules for the automotive vertical, planned project delivery, and maintained service stability; awarded the department’s “Fearless Challenger” award."
       },
       {
         "period": "Nov 2015 — Mar 2017",
@@ -210,27 +307,60 @@
     "education": {
       "heading": "Education",
       "items": [
-        { "school": "Beijing University of Posts and Telecommunications", "degree": "Master’s · Electronic Science and Technology", "period": "Sep 2013 — Mar 2016" },
-        { "school": "Beijing University of Posts and Telecommunications", "degree": "Bachelor’s · Electronic Information Science and Technology", "period": "Sep 2009 — Jul 2013" }
+        {
+          "school": "Beijing University of Posts and Telecommunications",
+          "degree": "Master’s · Electronic Science and Technology",
+          "period": "Sep 2013 — Mar 2016"
+        },
+        {
+          "school": "Beijing University of Posts and Telecommunications",
+          "degree": "Bachelor’s · Electronic Information Science and Technology",
+          "period": "Sep 2009 — Jul 2013"
+        }
       ]
     }
   },
   "technology": {
     "kicker": "Tech Stack Overview",
     "items": [
-      { "id": "lang", "label": "Backend / Languages", "value": "Python / Golang / PHP / Java / TypeScript\nDjango / FastAPI / Flask / go-zero / Express" },
-      { "id": "ai", "label": "AI / Agents", "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent" },
-      { "id": "bigdata", "label": "Data / Middleware", "value": "Spark / Flink / Hudi / Hadoop / Hive\nKafka / RabbitMQ / Elasticsearch / Celery" },
-      { "id": "storage", "label": "Storage / Retrieval", "value": "MySQL / PostgreSQL / Redis / HBase\nMongoDB / Neo4j / Vector DB" },
-      { "id": "cloud", "label": "Cloud Native", "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / Alibaba Cloud" },
-      { "id": "observability", "label": "Frontend / AI Tooling", "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code" }
+      {
+        "id": "lang",
+        "label": "Backend / Languages",
+        "value": "Python / Golang / PHP / Java / TypeScript\nDjango / FastAPI / Flask / go-zero / Express"
+      },
+      {
+        "id": "ai",
+        "label": "AI / Agents",
+        "value": "LangGraph / Agno / Dify / RAG\nSFT / RLHF / Triton / Code Agent"
+      },
+      {
+        "id": "bigdata",
+        "label": "Data / Middleware",
+        "value": "Spark / Flink / Hudi / Hadoop / Hive\nKafka / RabbitMQ / Elasticsearch / Celery"
+      },
+      {
+        "id": "storage",
+        "label": "Storage / Retrieval",
+        "value": "MySQL / PostgreSQL / Redis / HBase\nMongoDB / Neo4j / Vector DB"
+      },
+      {
+        "id": "cloud",
+        "label": "Cloud Native",
+        "value": "Docker / Kubernetes / Argo / KEDA\nKubeflow / AWS / Alibaba Cloud"
+      },
+      {
+        "id": "observability",
+        "label": "Frontend / AI Tooling",
+        "value": "React / Vue / Next.js / Tauri\nCodex / Cursor / Claude Code"
+      }
     ]
   },
   "sharing": {
     "kicker": "Beyond the portfolio",
-    "heading": "Find me on Bilibili",
-    "description": "For another side of me beyond this portfolio, visit my personal space on Bilibili.",
-    "linkLabel": "Visit my personal space"
+    "heading": "Find me on Bilibili & YouTube",
+    "description": "Beyond this portfolio, you can also find me on my Bilibili profile and YouTube channel.",
+    "linkLabel": "Visit my personal space",
+    "youtubeLinkLabel": "Visit my YouTube channel"
   },
   "contact": {
     "kicker": "Let's Collaborate",
@@ -240,6 +370,7 @@
     "emailCopied": "Email copied",
     "githubButton": "View GitHub",
     "bilibiliButton": "Find me on Bilibili, too",
-    "footerTagline": "Making AI simpler and more reliable to ship, with solid engineering."
+    "footerTagline": "Making AI simpler and more reliable to ship, with solid engineering.",
+    "youtubeButton": "Visit my YouTube channel"
   }
 }

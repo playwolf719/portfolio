@@ -1017,6 +1017,7 @@ button.text-link {
 .foundations__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  row-gap: 36px;
   margin-top: 24px;
 }
 
@@ -1025,12 +1026,12 @@ button.text-link {
   border-left: 1px solid var(--line-strong);
 }
 
-.foundation:first-child {
+.foundation:nth-child(3n + 1) {
   padding-left: 0;
   border-left: 0;
 }
 
-.foundation:last-child {
+.foundation:nth-child(3n) {
   padding-right: 0;
 }
 
@@ -1336,6 +1337,10 @@ button.text-link {
 .sharing__icon {
   display: flex;
   color: var(--accent);
+}
+
+.sharing__link + .sharing__link {
+  border-top: 0;
 }
 
 .sharing__destination {
@@ -1712,7 +1717,8 @@ button.text-link {
   }
 
   .foundation,
-  .foundation:first-child {
+  .foundation:nth-child(3n + 1),
+  .foundation:nth-child(3n) {
     padding: 24px 0 0;
     border-top: 1px solid var(--line-strong);
     border-left: 0;
