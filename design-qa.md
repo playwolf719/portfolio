@@ -1,59 +1,51 @@
-# Design QA
+# Signal Field redesign QA
 
-- Source visual truth: `/Users/dengchenbo/.codex/generated_images/019ef243-d5fa-7f32-a462-64f026498943/exec-68a85be8-29c1-4f02-ac56-61c49091b543.png`
-- Implementation URL: `http://127.0.0.1:5173/`
-- Primary implementation screenshot: `/Users/dengchenbo/myproj/testme/portfolio/qa-hero-1440-final.png`
-- Desktop viewport: `1440 x 900`
-- Mobile viewport: `390 x 844`
-- State coverage: hero default, project row expanded, mobile navigation open/closed, experience timeline in progress, contact section active.
-
-## Comparison evidence
-
-- Full-view comparison: `/Users/dengchenbo/myproj/testme/portfolio/qa-full-comparison.png`
-- Focused hero comparison: `/Users/dengchenbo/myproj/testme/portfolio/qa-compare-hero-final.png`
-- Focused capabilities comparison: `/Users/dengchenbo/myproj/testme/portfolio/qa-compare-capabilities.png`
-- Mobile hero: `/Users/dengchenbo/myproj/testme/portfolio/qa-mobile-hero-390.png`
-- Mobile navigation: `/Users/dengchenbo/myproj/testme/portfolio/qa-mobile-hero-menu-390.png`
+- Source visual truth: `tmp/copilot/e-signal.html`.
+- Implementation: `http://127.0.0.1:5173/` (React/Vite).
+- Source and implementation screenshot paths: unavailable; browser capture is blocked.
+- Viewport, pixel dimensions, CSS size, and density normalization: not measured.
+- Intended states: Chinese/English hero, capabilities, pinned project gallery, timeline, contact, mobile navigation, reduced motion.
 
 ## Findings
 
-- No actionable P0, P1, or P2 findings remain.
-- Fonts and typography: Chinese system sans fallbacks preserve the target's high-contrast grotesk hierarchy. The hero and section headings use restrained negative tracking, readable line heights, and no broken desktop wraps. Small utility labels use a monospace stack as in the target.
-- Spacing and layout rhythm: the full-bleed hero, four-column metric band, three-column capability section, timeline, technology index, and final CTA follow the target's editorial spacing and thin-divider structure. Mobile collapses to a single reading column without overlap or horizontal scrolling.
-- Colors and tokens: porcelain white, graphite, pale cool-gray dividers, and one cobalt accent map closely to the source. Contrast remains legible across text, buttons, navigation, and timeline states.
-- Image quality and asset fidelity: the orbital hero is implemented as a real antialiased WebGL scene with physically based materials, dynamic lighting, satellite motion, and a central B/D mark. No placeholder imagery, CSS illustration, handcrafted SVG, or raster substitute is used. The scene's exact orbital angle intentionally changes over time, so a still frame will not reproduce the generated mock's perspective pixel-for-pixel.
-- Copy and content: portfolio copy uses resume facts and client-facing outcomes. The added selected-systems section is an intentional content expansion that preserves the source hierarchy while making the portfolio more useful to potential clients.
-- Icons: all interface icons come from one Phosphor icon family with consistent optical weight and alignment.
-- States and interactions: navigation, mobile menu, project expansion, metric counters, scroll reveals, timeline progress, contact links, magnetic CTA, pointer parallax, and reduced-motion behavior are implemented.
-- Accessibility and responsiveness: semantic headings and controls, visible focus rings, 42px mobile menu target, `aria-expanded`, reduced-motion support, and keyboard-accessible links/buttons are present. Desktop and mobile screenshots show no clipping or collision.
+- [P1 / verification blocker] Visual capture and interaction verification are incomplete. The in-app browser returned “The browser access host is unavailable”. Chrome DevTools returned a running-profile conflict. Native Chrome fallback repeatedly lost its target when the active browser window changed. No source/implementation comparison is claimed.
+- The user authorized an isolated Playwright fallback, then explicitly deferred acceptance/verification. Browser setup and further visual/interaction checks were stopped. Resume QA only when requested.
 
-## Patches made during QA
+## Required fidelity surfaces
 
-- Increased section heading width to remove a one-character desktop wrap.
-- Added the visible email link beside the hero CTA to match the selected mock.
-- Changed the hero CTA to the target's outlined treatment while retaining a filled final CTA.
-- Added the B/D mark to the animated 3D core.
-- Made the mobile navigation surface fully opaque for reliable text contrast.
-- Corrected active navigation behavior for the final contact section.
-- Removed Three.js deprecation warnings and verified a clean browser console.
+- Fonts and typography: reference font imports, font scales, weights and spacing ported; rendered loading/wrapping unverified.
+- Spacing and layout rhythm: reference CSS ported, including gallery, timeline, cards, section spacing and responsive breakpoints; rendered proportions unverified.
+- Colors and visual tokens: reference near-black, lime, muted text, glass opacity and borders reused verbatim; rendered contrast unverified.
+- Image quality and asset fidelity: source Canvas particle engine reused, including all seven shapes, interaction physics and monogram text sampling. Standard capability icons use the existing Phosphor library. Rendered canvas remains unverified.
+- Copy/content: both locale JSON files are byte-equivalent in parsed content to the reference embedded locale data. Existing factual content and links are retained.
 
-## Motion enhancement QA
+## Completed code checks
 
-- Capability-section screenshot: `/Users/dengchenbo/myproj/testme/portfolio/qa-motion-capabilities.png`
-- Pointer-tilt screenshot: `/Users/dengchenbo/myproj/testme/portfolio/qa-motion-tilt.png`
-- Expanded-project screenshot: `/Users/dengchenbo/myproj/testme/portfolio/qa-motion-projects.png`
-- Timeline screenshot: `/Users/dengchenbo/myproj/testme/portfolio/qa-motion-timeline.png`
-- Browser console: no errors or warnings after the motion update.
-- Scroll progress: verified as a continuously changing transform tied to document progress.
-- Kinetic headings: all characters resolve to full opacity after their staggered entrance and retain one semantic heading label.
-- Capability depth: three interactive tilt surfaces render without horizontal overflow; pointer movement produces a live 3D transform matrix.
-- Project feedback: expansion remains functional and the active row receives scanning-edge and title-shift feedback.
-- Timeline and technology motion: the timeline progress rail advances with scroll; technology icons run staggered float animations.
-- Accessibility: all new continuous animations are disabled by the existing `prefers-reduced-motion` override.
+- Production Vite build passed.
+- Server-side React rendering passed for Chinese and English: 9 sections, 6 projects, Benjamin Deng identity, Email/GitHub/Bilibili/YouTube links.
+- JavaScript syntax checks passed for the particle engine and motion hook.
+- `git diff --check` passed.
+- Local Vite development server is running on port 5173.
 
-## Follow-up polish
+## Interaction implementation (not browser-tested)
 
-- P3: the Three.js production bundle is intentionally substantial; route-level or component-level lazy loading can further reduce initial JavaScript if deployment performance becomes the next priority.
-- P3: the orbit label positions are fixed to preserve legibility while the 3D model rotates; they could be projected from 3D coordinates in a future precision pass.
+- Responsive mobile menu, Escape to close and restore toggle focus.
+- Language switching with persisted preference and optional `?lang=zh` / `?lang=en`.
+- Pointer particle repulsion, click ripples, visibility pause and cleanup on unmount.
+- Scroll progress, seven particle shapes, kinetic headings, reveals, metric counters, magnetic links, card spotlight, project scanning, timeline illumination and token pings.
+- Reduced-motion mode freezes particles and uses a vertical project list.
+- Email copy success/failure feedback and external contact links.
 
-final result: passed
+## Comparison history
+
+No visual comparison is available. Full-view and focused-region comparisons are pending; there are no claimed passing screenshots or verified browser interactions.
+
+## Implementation checklist
+
+- User deferred verification on 2026-11-17. The following checks are retained for a future requested QA pass.
+- Capture source and implementation at matching desktop and mobile viewports.
+- Combine matched captures for full-view and typography/component comparisons.
+- Test language switching, navigation, mobile menu, all six gallery items, email feedback, pointer effects and runtime reduced-motion changes.
+- Inspect browser console and fix any visual or runtime issues before marking QA passed.
+
+final result: blocked

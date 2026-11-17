@@ -22,7 +22,8 @@ i18next
     load: "languageOnly",
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
+      order: ["querystring", "localStorage", "navigator"],
+      lookupQuerystring: "lang",
       lookupLocalStorage: "language",
       caches: ["localStorage"],
     },

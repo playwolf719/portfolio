@@ -9,10 +9,10 @@ When implementing from a selected generated mock, treat that image as the source
 ## Confirmed prototype direction
 
 - Use React so portfolio content and animation parameters remain easy to edit.
-- Recreate the selected white "orbital intelligence" mock as the visual source of truth.
-- The signature visual is a real interactive 3D orbital system: pearl-white core, silver rings, satellite nodes, and cobalt signal light.
-- Keep the page predominantly porcelain white with graphite text, pale gray dividers, and one cobalt-blue accent.
-- Include rich but purposeful motion: hero entrance, pointer parallax, continuous orbit motion, scroll reveals, metric counters, and an animated career timeline.
+- Use `tmp/copilot/e-signal.html` as the current visual source of truth (confirmed 2026-11-17), superseding the earlier white "orbital intelligence" direction.
+- The signature visual is an interactive Canvas signal field: B/D particle monogram in the hero, morphing into networks, frames, strata, a river, channels, and a signal ring as sections change. Preserve pointer repulsion and click ripple feedback.
+- Use a near-black background (#07080B), off-white text, muted gray, fine translucent borders, glass surfaces, and a single lime accent (#C6FF3D). Match the reference typography, oversized name, pill buttons, horizontal pinned project gallery, and timeline.
+- Include rich but purposeful motion: kinetic hero entrance, continuous particle morphing, scroll reveals, metric counters, pointer spotlights, and an animated career timeline.
 - Motion outside the hero must be clearly visible and feel more cinematic: kinetic headings, scroll progress, interactive depth, project scan feedback, pulsing timeline nodes, and animated technology icons. Preserve readability and reduced-motion support.
 - Use “Benjamin Deng” everywhere the portfolio displays or describes the owner’s name, and “B/D” for the monogram; do not use the previous Chinese name or monogram.
 - Include the owner's Bilibili presence (`https://space.bilibili.com/86627040`) alongside professional contact links. Ground any channel descriptions, featured videos, and audience metrics in supplied or verified information.

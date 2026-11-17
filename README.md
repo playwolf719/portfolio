@@ -1,77 +1,26 @@
 # Portfolio · Benjamin Deng
 
-> Benjamin Deng 的个人作品集网站 —— AI 平台架构师，专注 AI Agent、多智能体协作、大数据与企业级 AI Workflow。
+Benjamin Deng 的个人作品集，使用 React 和 Vite 构建，支持中文与英文。
 
-一个以「轨道智能（Orbital Intelligence）」为视觉主题的单页作品集：纯净的瓷白底色、石墨色文字、单一钴蓝点缀，配合真实的交互式 3D 轨道系统与丰富而克制的动效。
+当前视觉以 `tmp/copilot/e-signal.html` 为基准：近黑背景、荧光黄绿、超大姓名排版、玻璃卡片，以及随页面区块变形的交互粒子场。
 
-## ✨ 特性
+## 内容与动效
 
-- **交互式 3D 轨道视觉** —— 基于 Three.js 的珍珠白内核、银色光环、卫星节点与钴蓝信号灯（[OrbitScene](src/components/OrbitScene.jsx)）。
-- **电影级动效** —— Hero 入场、指针视差、滚动揭示、指标计数器、动态职业时间线与磁吸链接（[MotionSystem](src/components/MotionSystem.jsx)、[Reveal](src/components/Reveal.jsx)、[MagneticLink](src/components/MagneticLink.jsx)、[AnimatedNumber](src/components/AnimatedNumber.jsx)）。
-- **内容数据化** —— 能力、项目、经历、技术栈等内容集中在 [src/data.js](src/data.js)，易于编辑。
-- **可访问性** —— 支持 `prefers-reduced-motion`，在保证观感的同时保留可读性。
-- **响应式布局** —— 桌面与移动端自适应导航与排版。
+- 中英文文案、履历、项目和技术栈：`src/i18n/locales/zh.json`、`en.json`。
+- 社交链接和图标映射：`src/data.js`。
+- 页面结构：`src/App.jsx`；参考配色、排版与响应式样式：`src/styles.css`。
+- 粒子场形态与物理参数：`src/components/signalField.js`。
+- 滚动联动、横向项目画廊、光标聚光、磁吸按钮和时间线：`src/components/useSignalMotion.js`。
+- 指标计数：`src/components/AnimatedNumber.jsx`。
 
-## 🛠 技术栈
+粒子场包括 B/D、网络、画框、地层、河流、双环与信号环七种形态，支持指针排斥与点击涟漪。组件卸载时清理动画、定时器与事件监听。开启系统“减少动态效果”后，粒子场静止、项目改为纵向排列，保留全部内容。
 
-| 类别 | 选型 |
-| --- | --- |
-| 框架 | React 19 |
-| 构建 | Vite 6 |
-| 动画 | Framer Motion |
-| 3D | Three.js |
-| 图标 | Phosphor Icons |
-| 部署 | 腾讯云 CloudBase |
+移动端包含折叠导航，横向画廊自动改为纵向列表。联系入口包含 Email、GitHub、Bilibili 和 YouTube，邮箱支持复制反馈。
 
-## 📁 项目结构
+## 开发
 
-```
-portfolio/
-├── index.html              # 入口 HTML
-├── src/
-│   ├── main.jsx            # 应用挂载入口
-│   ├── App.jsx             # 页面主体与各区块
-│   ├── data.js             # 作品集内容（能力 / 项目 / 经历 / 技术栈）
-│   ├── styles.css          # 全局样式
-│   └── components/
-│       ├── OrbitScene.jsx      # 3D 轨道系统
-│       ├── MotionSystem.jsx    # 动效基础组件
-│       ├── Reveal.jsx          # 滚动揭示
-│       ├── MagneticLink.jsx    # 磁吸链接
-│       └── AnimatedNumber.jsx  # 数字计数器
-├── vite.config.mjs         # Vite 配置
-└── cloudbaserc.json        # CloudBase 部署配置
-```
+`npm install` 安装依赖，`npm run dev` 启动 Vite，`npm run build` 输出生产文件至 `dist/`，`npm run preview` 预览生产构建。
 
-## 🚀 快速开始
+## 部署
 
-```bash
-# 安装依赖
-npm install
-
-# 启动本地开发服务器（http://127.0.0.1:5173）
-npm run dev
-
-# 生产构建（输出到 dist/）
-npm run build
-
-# 预览构建产物
-npm run preview
-```
-
-## ☁️ 部署
-
-项目通过 [cloudbaserc.json](cloudbaserc.json) 配置部署到腾讯云 CloudBase：构建命令 `vite build`，产物目录 `dist/`。
-```
-tcb app deploy --framework vite -e resume-d1gmfdmb33453c869
-
-```
-
-## 📝 自定义内容
-
-绝大多数文案与展示数据集中在 [src/data.js](src/data.js)，包括导航、核心指标、能力卡片、精选项目、职业经历与技术栈。编辑该文件即可更新作品集内容，无需改动组件逻辑。
-
-## 📬 联系
-
-- Email: playwolf719@163.com
-- GitHub: [@playwolf719](https://github.com/playwolf719)
+保留现有腾讯云 CloudBase 配置 `cloudbaserc.json`。本次改造仅修改本地项目，不自动部署。

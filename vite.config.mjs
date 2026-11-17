@@ -15,11 +15,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split heavy/stable vendors into their own long-cacheable chunks.
-          // Three.js is additionally lazy-loaded via the OrbitScene import,
-          // so it stays off the initial critical path entirely.
-          three: ["three"],
-          motion: ["framer-motion"],
+          // Stable React vendor chunk; the signal field uses native Canvas.
           react: ["react", "react-dom"],
         },
       },
