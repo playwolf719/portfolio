@@ -42,7 +42,7 @@
   "music": {
     "play": "Play background music",
     "mute": "Mute background music",
-    "waiting": "Autoplay was blocked. Music will start after your first click or key press.",
+    "waiting": "Playback was blocked. Click the sound button again to retry.",
     "unavailable": "Audio error",
     "retry": "Background music failed to load. Click to retry.",
     "on": "Sound on",
