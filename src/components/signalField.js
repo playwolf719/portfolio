@@ -1,9 +1,11 @@
 // Particle shapes and physics ported from the selected e-signal.html reference.
+import { FACE_PLAN, LENS, TOP, buildPortrait, depthAt, lensR, lensZ, spanAt } from './portrait.js';
+
 export function createSignalField(cv) {
 
 
     const ctx = cv.getContext('2d', { alpha: true });
-    if (!ctx) return { init() {}, setShape() {}, setReduced() {}, destroy() {} };
+    if (!ctx) return { init() {}, setShape() {}, setReduced() {}, setAnchor() {}, setOcclusion() {}, destroy() {} };
     const listeners = new AbortController();
     let disposed = false, rt = 0;
     const listen = (target, event, handler, options = {}) => target.addEventListener(event, handler, { ...options, signal: listeners.signal });
@@ -15,9 +17,13 @@ export function createSignalField(cv) {
     let W = 0, H = 0, dpr = 1, N = 0, mobile = false;
     let x, y, vx, vy, tx, ty, s1, s2, kind, delay;
     let buckets = [[], [], [], []];
-    let shape = 'monogram', shapeAt = 0, alpha = 1, alphaTarget = 1;
+    let shape = 'face', shapeAt = 0, alpha = 1, alphaTarget = 1;
     let mono = new Float32Array(0), monoCount = 0;
     let nodes = [], edges = [];
+    let portrait = {}, faceT = new Float32Array(0), faceRole = new Uint8Array(0), faceIdx = new Uint32Array(0);
+    let noseParticles = [];
+    const roleCount = [0, 0, 0, 0];
+    let yaw = 0, pitch = 0, anchor = null, occlusion = null;
     let raf = 0, running = false, last = 0, frozenT = 0;
     const ptr = { x: -9999, y: -9999, on: false };
     const bursts = [];
@@ -27,7 +33,7 @@ export function createSignalField(cv) {
     function rng(seed) { let s = seed >>> 0; return () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296); }
 
     function countFor(w) {
-      let n = w < 600 ? 800 : w < 1100 ? 1500 : 2200;
+      let n = w < 600 ? 1600 : w < 1100 ? 3000 : 5000;
       if ((navigator.hardwareConcurrency || 8) <= 4) n = Math.round(n * 0.75);
       return n;
     }
@@ -46,6 +52,7 @@ export function createSignalField(cv) {
         x[i] = Math.random() * W; y[i] = Math.random() * H;
         delay[i] = s2[i] * P.stagger;
       }
+      buildFaceTargets();
     }
 
     /** Sample the "B/D" monogram from rasterised text into normalised points. */
@@ -72,6 +79,44 @@ export function createSignalField(cv) {
       for (let i = 0; i < pts.length; i += 2) { mono[i] = (pts[i] - cx) / bw; mono[i + 1] = (pts[i + 1] - cy) / bw; }
     }
 
+    /* ---- particle portrait: lit stipple bust from portrait.js, assigned per brightness bucket ---- */
+    const FACE_HALO = 0.05;
+    const ROLE = { still: 0, glint: 1, scan: 2, halo: 3 };
+    /** Give every particle a fixed portrait target (or a dynamic role) for the current particle count. */
+    function buildFaceTargets() {
+      faceT = new Float32Array(N * 3); faceRole = new Uint8Array(N); faceIdx = new Uint32Array(N);
+      noseParticles = [];
+      const byKind = [[], [], [], []];
+      for (let i = 0; i < N; i++) { if (s1[i] < FACE_HALO) faceRole[i] = ROLE.halo; else byKind[kind[i]].push(i); }
+      FACE_PLAN.forEach((plan, k) => {
+        const list = byKind[k], total = plan.reduce((sum, [, w]) => sum + w, 0);
+        let at = 0;
+        plan.forEach(([name, w], p) => {
+          const n = p === plan.length - 1 ? list.length - at : Math.min(list.length - at, Math.round(list.length * w / total));
+          const pts = portrait[name];
+          if (!pts) roleCount[ROLE[name]] = n;
+          for (let j = 0; j < n; j++) {
+            const i = list[at + j];
+            if (!pts) { faceRole[i] = ROLE[name]; faceIdx[i] = j; continue; }
+            if (name === 'nose' || name === 'noseHighlight') noseParticles.push(i);
+            const m = Math.floor((j + 0.5) * (pts.length / 3) / n) * 3;
+            faceT[i * 3] = pts[m]; faceT[i * 3 + 1] = pts[m + 1]; faceT[i * 3 + 2] = pts[m + 2];
+          }
+          at += n;
+        });
+      });
+    }
+    /** Keep the desktop bust large and centered, with its mouth below the name. */
+    function faceFrame() {
+      const top = anchor ?? H * 0.42;
+      if (!mobile) {
+        const sc = Math.min(H * 0.64, W * 0.42);
+        return { cx: W * 0.5, cy: H * 0.42, sc };
+      }
+      const sc = Math.max(mobile ? 170 : 240, Math.min(H * 0.62, W * (mobile ? 0.68 : 0.36), (top + H * 0.02) / (LENS.y + LENS.bottom * 1.1 - TOP + 0.04)));
+      return { cx: W * 0.5, cy: top - 6 - (LENS.y + LENS.bottom * 1.1) * sc, sc };
+    }
+
     function buildNetwork() {
       const r = rng(7);
       const n = mobile ? 12 : 20;
@@ -87,6 +132,45 @@ export function createSignalField(cv) {
 
     /* ---- target shapes (viewport space). t = seconds ---- */
     const SHAPES = {
+      face(t) {
+        const { cx, cy, sc } = faceFrame();
+        // The head turns toward the pointer (the torso follows less) and idles with a slow sway.
+        const ty0 = ptr.on ? clamp((ptr.x - cx) / (W * 0.5), -1, 1) * 0.34 : Math.sin(t * 0.4) * 0.2;
+        const tp0 = ptr.on ? clamp((ptr.y - cy) / (H * 0.6), -1, 1) * 0.18 : Math.sin(t * 0.27) * 0.05;
+        const ease = reduced ? 1 : 0.05;
+        yaw += (ty0 - yaw) * ease; pitch += (tp0 - pitch) * ease;
+        const rot = [[Math.cos(yaw), Math.sin(yaw), Math.cos(pitch), Math.sin(pitch)], [Math.cos(yaw * 0.35), Math.sin(yaw * 0.35), Math.cos(pitch * 0.3), Math.sin(pitch * 0.3)]];
+        const live = !reduced;
+        const breathe = live ? 1 + 0.006 * Math.sin(t * 1.4) : 1;
+        const sv = TOP + (0.56 - TOP) * fract(t * 0.085), [sl, sr] = spanAt(sv), glint = -1.6 + 3.2 * fract(t * 0.16);
+        // Brief hologram glitch: one horizontal slice jumps sideways for ~150ms every few seconds.
+        const gs = Math.floor(t / 5.7), gOn = live && t - gs * 5.7 < 0.15, gv = -0.7 + 1.3 * fract(Math.sin(gs * 91.7) * 4375.85), gx = (fract(Math.sin(gs * 17.3) * 9137.1) - 0.5) * 0.08;
+        for (let i = 0; i < N; i++) {
+          const role = faceRole[i], j = faceIdx[i];
+          if (role === ROLE.halo) { // sparse dust orbiting the head
+            const a = s2[i] * TAU + t * 0.08 * (kind[i] === 3 ? 2 : 1), rr = sc * (0.72 + s1[i] / FACE_HALO * 0.4);
+            tx[i] = cx + Math.cos(a) * rr; ty[i] = cy - sc * 0.1 + Math.sin(a) * rr * 0.95;
+            continue;
+          }
+          let px, py, pz;
+          if (role === ROLE.glint) { // bright reflection sweeping diagonally across the lenses
+            const sx = j % 2 ? 1 : -1, along = (s2[i] - 0.5) * 0.18, across = (glint + (s1[i] - 0.5) * 0.3) * LENS.a * 0.7;
+            let du = along * 0.5 + across * 0.866, dv = -along * 0.866 + across * 0.5;
+            const rad = lensR(sx * LENS.x + du, LENS.y + dv);
+            if (rad > 0.92) { du *= 0.92 / rad; dv *= 0.92 / rad; }
+            px = sx * LENS.x + du; py = LENS.y + dv; pz = lensZ(px) + 0.014;
+          } else if (role === ROLE.scan) { // depth scan line sweeping down the head
+            px = sl + (sr - sl) * j / Math.max(1, roleCount[ROLE.scan] - 1); py = sv;
+            pz = lensR(px, py) < 1.05 ? lensZ(px) + 0.014 : depthAt(px, py) + 0.012;
+          } else { px = faceT[i * 3]; py = faceT[i * 3 + 1]; pz = faceT[i * 3 + 2]; }
+          if (gOn && py > gv && py < gv + 0.05) px += gx;
+          const [cyw, syw, cp, sp] = rot[py > 0.62 ? 1 : 0];
+          const x1 = px * cyw + pz * syw, z1 = pz * cyw - px * syw;
+          const y1 = py * cp + z1 * sp, z2 = z1 * cp - py * sp, f = breathe * 4 / (4 - z2);
+          tx[i] = cx + x1 * sc * f + Math.sin(t * 1.3 + s2[i] * 30) * 0.6;
+          ty[i] = cy + y1 * sc * f + Math.cos(t * 1.1 + s1[i] * 30) * 0.6;
+        }
+      },
       monogram(t) {
         const cx = mobile ? W * 0.5 : W * 0.7, cy = mobile ? H * 0.3 : H * 0.42;
         const sc = mobile ? W * 0.84 : Math.min(W * 0.46, H * 1.15);
@@ -238,10 +322,33 @@ export function createSignalField(cv) {
       }
       for (let b = 0; b < 4; b++) {
         const list = buckets[b], sz = b === 3 ? 2 : b === 2 ? 1.5 : 1.3;
+        if (b === 3) { // soft glow under the lime accents
+          ctx.fillStyle = 'rgba(198,255,61,0.16)';
+          for (let j = 0; j < list.length; j++) { const i = list[j]; ctx.fillRect(x[i] - 2.5, y[i] - 2.5, 5, 5); }
+        }
         ctx.fillStyle = STYLES[b];
         for (let j = 0; j < list.length; j++) { const i = list[j]; ctx.fillRect(x[i] - sz / 2, y[i] - sz / 2, sz, sz); }
       }
       ctx.globalAlpha = 1;
+      // Fade particles that pass behind the hero title so the name stays crisp.
+      if (occlusion && occlusion.bottom > 0 && occlusion.top < H) {
+        const { top, bottom } = occlusion, edge = 16, fade = ctx.createLinearGradient(0, top - edge, 0, bottom + edge);
+        const k = edge / Math.max(1, bottom - top + edge * 2);
+        fade.addColorStop(0, 'rgba(0,0,0,0)'); fade.addColorStop(k, 'rgba(0,0,0,0.62)'); fade.addColorStop(1 - k, 'rgba(0,0,0,0.62)'); fade.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle = fade;
+        ctx.fillRect(occlusion.left - edge, top - edge, occlusion.right - occlusion.left + edge * 2, bottom - top + edge * 2);
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      // Restore anatomical detail lost to the title-wide fade; text still renders above the canvas.
+      if (shape === 'face') {
+        ctx.globalAlpha = alpha;
+        for (const i of noseParticles) {
+          const bright = kind[i] === 2, sz = bright ? 1.8 : 1.4;
+          ctx.fillStyle = bright ? 'rgba(237,239,243,0.9)' : STYLES[1];
+          ctx.fillRect(x[i] - sz / 2, y[i] - sz / 2, sz, sz);
+        }
+        ctx.globalAlpha = 1;
+      }
     }
 
     function loop(now) {
@@ -265,6 +372,7 @@ export function createSignalField(cv) {
 
     function init() {
       sampleMonogram();
+      portrait = buildPortrait();
       resize(true);
       shapeAt = performance.now();
       if (reduced) snap(); else start();
@@ -279,7 +387,11 @@ export function createSignalField(cv) {
       listen(window, 'pointerdown', (e) => { if (!reduced && !e.target.closest('a,button')) bursts.push({ x: e.clientX, y: e.clientY, t: performance.now() }); });
     }
     function setReduced(v) { reduced = v; if (v) { stop(); snap(); } else start(); }
+    /** Document-space top of the hero title; the portrait is framed above it. */
+    function setAnchor(top) { if (top === anchor) return; anchor = top; if (reduced) snap(); }
+    /** Viewport rect (or null) behind which particles are faded. */
+    function setOcclusion(rect) { occlusion = rect; if (reduced) draw(); }
 
-    return { init, setShape, setReduced, destroy() { disposed = true; stop(); clearTimeout(rt); listeners.abort(); }, get shape() { return shape; } };
+    return { init, setShape, setReduced, setAnchor, setOcclusion, destroy() { disposed = true; stop(); clearTimeout(rt); listeners.abort(); }, get shape() { return shape; } };
 
 }

@@ -39,6 +39,15 @@
       }
     ]
   },
+  "music": {
+    "play": "播放背景音乐",
+    "mute": "关闭背景音乐",
+    "waiting": "浏览器限制了自动播放，首次点击或按键后将开始播放",
+    "unavailable": "音乐异常",
+    "retry": "背景音乐加载失败，点击重试",
+    "on": "音乐 开",
+    "off": "音乐 关"
+  },
   "language": {
     "label": "语言",
     "zh": "中文",
@@ -366,11 +375,14 @@
     "kicker": "开启合作",
     "heading": "一起构建更智能的未来",
     "description": "如果你正在寻找长期合作伙伴，或希望把 AI 能力真正落到复杂业务中，我们可以聊聊。",
-    "emailButton": "发送邮件",
+    "emailButton": "复制邮箱",
     "emailCopied": "邮箱已复制",
+    "copyFailed": "请手动复制邮箱地址",
+    "copyTitle": "复制邮箱地址",
     "githubButton": "查看 GitHub",
     "bilibiliButton": "也可以在 Bilibili 找到我",
     "footerTagline": "用工程能力，让 AI 落地更简单、更可靠。",
-    "youtubeButton": "访问 YouTube 频道"
+    "youtubeButton": "访问 YouTube 频道",
+    "credits": "素材署名"
   }
 }

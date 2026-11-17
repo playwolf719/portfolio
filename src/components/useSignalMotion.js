@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createSignalField } from "./signalField.js";
 
 const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-const labels = { monogram: "B/D", network: "NETWORK", frames: "FRAMES", strata: "STRATA", river: "RIVER", dual: "CHANNELS", ring: "SIGNAL" };
+const labels = { face: "FACE", monogram: "B/D", network: "NETWORK", frames: "FRAMES", strata: "STRATA", river: "RIVER", dual: "CHANNELS", ring: "SIGNAL" };
 const aliases = { metrics: "home", foundations: "work", stack: "experience" };
 
 export function useSignalMotion(language) {
@@ -41,6 +41,7 @@ export function useSignalMotion(language) {
     });
 
     function layout() {
+      fieldRef.current?.setAnchor(Math.round(heroTitle.getBoundingClientRect().top + window.scrollY));
       distance = window.innerWidth > 860 && !query.matches ? Math.max(0, track.scrollWidth - track.clientWidth) : 0;
       work.style.height = distance ? `${window.innerHeight + distance}px` : "";
       if (!distance) track.style.transform = "";
@@ -54,6 +55,8 @@ export function useSignalMotion(language) {
       document.getElementById("hudPct").textContent = `${String(Math.round(progress * 100)).padStart(3, "0")}%`;
       document.getElementById("top").classList.toggle("scrolled", y > 40);
       heroTitle.style.setProperty("--hw", String(Math.round(640 - 330 * clamp(y / vh))));
+      const title = heroTitle.getBoundingClientRect();
+      fieldRef.current?.setOcclusion(title.bottom > 0 ? { top: title.top, bottom: title.bottom, left: title.left, right: title.right } : null);
       if (distance) {
         const p = clamp(-work.getBoundingClientRect().top / distance);
         track.style.transform = `translate3d(${-p * distance}px,0,0)`;

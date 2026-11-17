@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowUpRight, List, X } from "@phosphor-icons/react";
+import { ArrowUpRight, Copy, List, X } from "@phosphor-icons/react";
 import { AnimatedNumber } from "./components/AnimatedNumber.jsx";
 import { LanguageSwitcher } from "./components/LanguageSwitcher.jsx";
+import { SoundToggle } from "./components/SoundToggle.jsx";
 import { useSignalMotion } from "./components/useSignalMotion.js";
 import { capabilityIcons, profileLinks } from "./data.js";
 
@@ -23,6 +24,32 @@ function LinkButton({ href, children, primary = false }) {
   return <a className={`btn magnetic${primary ? " primary" : ""}`} href={href} {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}><span className="inner">{children}<ArrowUpRight className="arr" size={16} aria-hidden="true" /></span></a>;
 }
 
+function CopyEmailButton({ onCopy, children }) {
+  return <button type="button" className="btn magnetic primary" onClick={onCopy}><span className="inner">{children}<Copy className="arr" size={16} aria-hidden="true" /></span></button>;
+}
+
+async function writeClipboard(text) {
+  if (navigator.clipboard?.writeText && window.isSecureContext) return navigator.clipboard.writeText(text);
+  const area = Object.assign(document.createElement("textarea"), { value: text, readOnly: true });
+  area.style.cssText = "position:fixed;opacity:0";
+  document.body.append(area); area.select();
+  const ok = document.execCommand("copy"); area.remove();
+  if (!ok) throw new Error("copy failed");
+}
+
+function useCopyEmail() {
+  const { t } = useTranslation();
+  const [status, setStatus] = useState("");
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  async function copyEmail() {
+    try { await writeClipboard(profileLinks.email); setStatus(`${t("contact.emailCopied")} · ${profileLinks.email}`); }
+    catch { setStatus(t("contact.copyFailed")); }
+    clearTimeout(timer.current); timer.current = setTimeout(() => setStatus(""), 2500);
+  }
+  return [status, copyEmail];
+}
+
 function Header() {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
@@ -37,18 +64,18 @@ function Header() {
     <nav className={`nav${open ? " is-open" : ""}`} id="nav" aria-label={t("header.mainNavAriaLabel")}>
       {t("nav.items", { returnObjects: true }).map((item) => <a key={item.id} href={`#${item.id}`} onClick={() => setOpen(false)}>{item.label}</a>)}
     </nav>
-    <div className="top-actions"><LanguageSwitcher /><button className="menu-toggle" ref={toggle} type="button" aria-expanded={open} aria-controls="nav" aria-label={t(open ? "header.closeNav" : "header.openNav")} onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <List size={22} />}</button></div>
+    <div className="top-actions"><SoundToggle /><LanguageSwitcher /><button className="menu-toggle" ref={toggle} type="button" aria-expanded={open} aria-controls="nav" aria-label={t(open ? "header.closeNav" : "header.openNav")} onClick={() => setOpen(!open)}>{open ? <X size={22} /> : <List size={22} />}</button></div>
   </header>;
 }
 
-function Hero() {
+function Hero({ onCopyEmail }) {
   const { t } = useTranslation();
-  return <section id="home" className="hero" data-shape="monogram"><div className="wrap">
+  return <section id="home" className="hero" data-shape="face"><div className="wrap">
     <p className="eyebrow"><span className="live" aria-hidden="true">●</span><span>{t("hero.eyebrow")}</span></p>
     <Heading as="h1" className="hero-title" id="heroTitle" perChar>{t("hero.titleLine1")}</Heading>
     <p className="hero-sub">{t("hero.titleLine2")}</p>
     <div className="hero-row"><div className="rv" style={{ "--d": 3 }}><p className="intro"><span>{t("hero.introLine1")}</span><span>{t("hero.introLine2")}</span></p><ul className="tags">{t("hero.tags", { returnObjects: true }).map((tag) => <li className="tag" key={tag}>{tag}</li>)}</ul></div>
-      <div className="btns rv" style={{ "--d": 5 }}><LinkButton href={`mailto:${profileLinks.email}`} primary>{t("contact.emailButton")}</LinkButton><LinkButton href={profileLinks.github}>GitHub</LinkButton><LinkButton href={profileLinks.bilibili}>{t("hero.bilibiliLabel")}</LinkButton><LinkButton href={profileLinks.youtube}>{t("hero.youtubeLabel")}</LinkButton></div>
+      <div className="btns rv" style={{ "--d": 5 }}><CopyEmailButton onCopy={onCopyEmail}>{t("contact.emailButton")}</CopyEmailButton><LinkButton href={profileLinks.github}>GitHub</LinkButton><LinkButton href={profileLinks.bilibili}>{t("hero.bilibiliLabel")}</LinkButton><LinkButton href={profileLinks.youtube}>{t("hero.youtubeLabel")}</LinkButton></div>
     </div>
     <a className="scroll-cue" href="#metrics" aria-label={t("hero.scrollAriaLabel")}><i aria-hidden="true" /><span>{t("hero.scrollCue")}</span></a>
   </div></section>;
@@ -94,22 +121,15 @@ function Sharing() {
   return <section id="sharing" className="sec" data-shape="dual"><div className="wrap"><p className="kicker">{t("sharing.kicker")}</p><Heading>{t("sharing.heading")}</Heading><p className="lede rv">{t("sharing.description")}</p><div className="share">{[{ name: "Bilibili", href: profileLinks.bilibili, label: t("sharing.linkLabel") }, { name: "YouTube", href: profileLinks.youtube, label: t("sharing.youtubeLinkLabel") }].map((item, i) => <a className="sh card rv" key={item.name} href={item.href} target="_blank" rel="noopener noreferrer" style={{ "--d": i }}><p className="num"><span>0{i + 1}</span><span>{item.name.toUpperCase()}</span></p><div><p className="plat">{item.name}</p><p className="url">{item.href.replace(/^https:\/\//, "")}</p></div><p className="go"><span>{item.label}</span><span className="circle"><ArrowUpRight size={22} aria-hidden="true" /></span></p></a>)}</div></div></section>;
 }
 
-function Contact() {
-  const { t, i18n } = useTranslation();
-  const [status, setStatus] = useState("");
-  const timer = useRef(null);
-  useEffect(() => () => clearTimeout(timer.current), []);
-  async function copyEmail() {
-    try { await navigator.clipboard.writeText(profileLinks.email); setStatus(t("contact.emailCopied")); }
-    catch { setStatus(i18n.language === "zh" ? "请手动复制邮箱地址" : "Please copy the email address manually"); }
-    clearTimeout(timer.current); timer.current = setTimeout(() => setStatus(""), 2500);
-  }
-  return <><section id="contact" className="sec contact" data-shape="ring"><div className="wrap"><p className="kicker">{t("contact.kicker")}</p><Heading className="cta-h">{t("contact.heading")}</Heading><p className="lede rv">{t("contact.description")}</p><div className="btns rv" style={{ "--d": 2 }}><LinkButton href={`mailto:${profileLinks.email}`} primary>{t("contact.emailButton")}</LinkButton><LinkButton href={profileLinks.github}>{t("contact.githubButton")}</LinkButton><LinkButton href={profileLinks.bilibili}>{t("contact.bilibiliButton")}</LinkButton><LinkButton href={profileLinks.youtube}>{t("contact.youtubeButton")}</LinkButton></div><button type="button" className="mail rv" style={{ "--d": 3 }} onClick={copyEmail} title={i18n.language === "zh" ? "复制邮箱地址" : "Copy email address"}>{profileLinks.email}</button></div></section><div className={`toast${status ? " show" : ""}`} role="status" aria-live="polite">{status}</div></>;
+function Contact({ onCopyEmail }) {
+  const { t } = useTranslation();
+  return <section id="contact" className="sec contact" data-shape="ring"><div className="wrap"><p className="kicker">{t("contact.kicker")}</p><Heading className="cta-h">{t("contact.heading")}</Heading><p className="lede rv">{t("contact.description")}</p><div className="btns rv" style={{ "--d": 2 }}><CopyEmailButton onCopy={onCopyEmail}>{t("contact.emailButton")}</CopyEmailButton><LinkButton href={profileLinks.github}>{t("contact.githubButton")}</LinkButton><LinkButton href={profileLinks.bilibili}>{t("contact.bilibiliButton")}</LinkButton><LinkButton href={profileLinks.youtube}>{t("contact.youtubeButton")}</LinkButton></div><button type="button" className="mail rv" style={{ "--d": 3 }} onClick={onCopyEmail} title={t("contact.copyTitle")}>{profileLinks.email}</button></div></section>;
 }
 
 export function App() {
   const { t, i18n } = useTranslation();
   const canvasRef = useSignalMotion(i18n.language);
+  const [copyStatus, copyEmail] = useCopyEmail();
   useEffect(() => {
     document.documentElement.lang = i18n.language === "zh" ? "zh-CN" : "en";
     document.title = t("meta.title");
@@ -118,8 +138,9 @@ export function App() {
   return <>
     <a className="skip" href="#main">{i18n.language === "zh" ? "跳到主要内容" : "Skip to main content"}</a>
     <canvas id="field" ref={canvasRef} aria-hidden="true" /><div className="vignette" aria-hidden="true" /><div className="progress" id="progress" aria-hidden="true" />
-    <Header /><div className="hud" aria-hidden="true"><span className="dot" /><span>SIGNAL FIELD</span><span className="shape" id="hudShape">B/D</span><span id="hudPct">000%</span></div>
-    <main id="main"><Hero /><Metrics /><Capabilities /><Work /><Experience /><Technology /><Sharing /><Contact /></main>
-    <footer><div className="fl"><Mark /><span>© {new Date().getFullYear()} Benjamin Deng · {t("contact.footerTagline")}</span></div><nav aria-label="Links"><a href={`mailto:${profileLinks.email}`}>Email</a>{["github", "bilibili", "youtube"].map((key) => <a key={key} href={profileLinks[key]} target="_blank" rel="noopener noreferrer">{{ github: "GitHub", bilibili: "Bilibili", youtube: "YouTube" }[key]}</a>)}</nav></footer>
+    <Header /><div className="hud" aria-hidden="true"><span className="dot" /><span>SIGNAL FIELD</span><span className="shape" id="hudShape">FACE</span><span id="hudPct">000%</span></div>
+    <main id="main"><Hero onCopyEmail={copyEmail} /><Metrics /><Capabilities /><Work /><Experience /><Technology /><Sharing /><Contact onCopyEmail={copyEmail} /></main>
+    <footer><div className="fl"><Mark /><span>© {new Date().getFullYear()} Benjamin Deng · {t("contact.footerTagline")}</span></div><nav aria-label="Links"><button type="button" onClick={copyEmail} title={t("contact.copyTitle")}>Email</button>{["github", "bilibili", "youtube"].map((key) => <a key={key} href={profileLinks[key]} target="_blank" rel="noopener noreferrer">{{ github: "GitHub", bilibili: "Bilibili", youtube: "YouTube" }[key]}</a>)}<a href={`${import.meta.env.BASE_URL}credits.txt`} target="_blank" rel="noopener noreferrer">{t("contact.credits")}</a></nav></footer>
+    <div className={`toast${copyStatus ? " show" : ""}`} role="status" aria-live="polite">{copyStatus}</div>
   </>;
 }

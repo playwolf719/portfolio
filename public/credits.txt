@@ -1,0 +1,19 @@
+Hero portrait geometry
+
+"Infinite, 3D Head Scan" by Lee Perry-Smith
+Based on a work at www.triplegangers.com.
+Creator: http://www.ir-ltd.net/
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+https://creativecommons.org/licenses/by/3.0/
+
+Source model and license:
+https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith
+
+Changes: sampled and quantized into a lit particle cloud, fitted with
+procedural sunglasses, enhanced nose and lip shading, and animated in Canvas.
+This is a decorative scanned model, not a likeness of the portfolio owner.
+
+Background music
+
+"Black Field" - user-supplied track from tmp/bg.mp3.
+Converted to a 128 kbps MP3 for web playback, with cover art removed.

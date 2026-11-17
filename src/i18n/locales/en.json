@@ -39,6 +39,15 @@
       }
     ]
   },
+  "music": {
+    "play": "Play background music",
+    "mute": "Mute background music",
+    "waiting": "Autoplay was blocked. Music will start after your first click or key press.",
+    "unavailable": "Audio error",
+    "retry": "Background music failed to load. Click to retry.",
+    "on": "Sound on",
+    "off": "Sound off"
+  },
   "language": {
     "label": "Language",
     "zh": "中文",
@@ -366,11 +375,14 @@
     "kicker": "Let's Collaborate",
     "heading": "Let's build a smarter future together",
     "description": "If you're looking for a long-term partner, or want to bring AI capability into complex business reality, let's talk.",
-    "emailButton": "Send Email",
+    "emailButton": "Copy Email",
     "emailCopied": "Email copied",
+    "copyFailed": "Please copy the email address manually",
+    "copyTitle": "Copy email address",
     "githubButton": "View GitHub",
     "bilibiliButton": "Find me on Bilibili, too",
     "footerTagline": "Making AI simpler and more reliable to ship, with solid engineering.",
-    "youtubeButton": "Visit my YouTube channel"
+    "youtubeButton": "Visit my YouTube channel",
+    "credits": "Credits"
   }
 }
