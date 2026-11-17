@@ -3,11 +3,17 @@ import { useTranslation } from "react-i18next";
 
 const SRC = `${import.meta.env.BASE_URL}audio/bg.mp3`;
 const VOLUME = 0.45;
+const MUTED_KEY = "bgm-muted";
 
-/** Header control for the looping background track; starts only after an explicit click. */
+const readMuted = () => { try { return localStorage.getItem(MUTED_KEY) === "1"; } catch { return false; } };
+const writeMuted = (muted) => { try { localStorage.setItem(MUTED_KEY, muted ? "1" : "0"); } catch { /* Keep the current page preference when storage is unavailable. */ } };
+
+/** Starts off, allows one page click to play, and respects an explicit mute. */
 export function SoundToggle() {
   const { t } = useTranslation();
   const audio = useRef(null);
+  const button = useRef(null);
+  const allowPageClick = useRef(!readMuted());
   const [enabled, setEnabled] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -36,6 +42,14 @@ export function SoundToggle() {
     el.addEventListener("pause", onPause);
     el.addEventListener("error", onError);
     el.volume = VOLUME;
+    const onPageClick = (event) => {
+      // The sound button handles its own click, without also triggering page playback.
+      if (!event.isTrusted || button.current?.contains(event.target)) return;
+      if (!allowPageClick.current) return;
+      allowPageClick.current = false;
+      el.play().catch(onFailure);
+    };
+    document.addEventListener("click", onPageClick, true);
     const onVisibility = () => {
       if (document.hidden) { resumeOnShow = !el.paused; if (resumeOnShow) el.pause(); }
       else if (resumeOnShow) {
@@ -49,13 +63,16 @@ export function SoundToggle() {
       el.removeEventListener("play", onPlay); el.removeEventListener("pause", onPause);
       el.removeEventListener("error", onError);
       document.removeEventListener("visibilitychange", onVisibility);
+      document.removeEventListener("click", onPageClick, true);
       el.pause();
     };
   }, []);
 
   function toggle() {
     const el = audio.current;
+    allowPageClick.current = false;
     if (!enabled || failed) {
+      writeMuted(false);
       setEnabled(true); setFailed(false); setWaiting(false);
       if (el.error) el.load();
       el.play().catch((error) => {
@@ -65,13 +82,13 @@ export function SoundToggle() {
         console.error("Background music could not be played.", error); setFailed(true);
       });
     }
-    else { setEnabled(false); setWaiting(false); el.pause(); }
+    else { writeMuted(true); setEnabled(false); setWaiting(false); el.pause(); }
   }
 
   const label = t(failed ? "music.retry" : enabled ? "music.mute" : "music.play");
   return <>
     <audio ref={audio} src={SRC} loop preload="auto" />
-    <button type="button" className={`sound-toggle${playing ? " is-playing" : ""}`} aria-pressed={enabled} aria-label={label} title={waiting && !failed ? t("music.waiting") : label} onClick={toggle}>
+    <button ref={button} type="button" className={`sound-toggle${playing ? " is-playing" : ""}`} aria-pressed={enabled} aria-label={label} title={waiting && !failed ? t("music.waiting") : label} onClick={toggle}>
       <span className="eq" aria-hidden="true"><i /><i /><i /><i /></span>
       <span className="sound-label" aria-hidden="true">{t(failed ? "music.unavailable" : enabled ? "music.on" : "music.off")}</span>
     </button>
