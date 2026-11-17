@@ -14,6 +14,7 @@ export function SoundToggle() {
   const { t } = useTranslation();
   const audio = useRef(null);
   const button = useRef(null);
+  const [enabled, setEnabled] = useState(() => !readMuted());
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
   const [waiting, setWaiting] = useState(false);
@@ -47,7 +48,9 @@ export function SoundToggle() {
       el.play().catch(onFailure);
     };
     const awaitGesture = () => UNLOCK_EVENTS.forEach((type) => window.addEventListener(type, retry, { capture: true, signal: unlock.signal }));
-    el.volume = 0;
+    // Request audible autoplay so a blocked attempt reaches the gesture fallback.
+    // Starting at zero can be accepted as silent autoplay, then paused when the fade becomes audible.
+    el.volume = VOLUME;
     if (!readMuted()) {
       el.play().catch((error) => {
         onFailure(error);
@@ -76,8 +79,8 @@ export function SoundToggle() {
 
   function toggle() {
     const el = audio.current;
-    if (el.paused) {
-      writeMuted(false); setFailed(false);
+    if (!enabled || failed) {
+      writeMuted(false); setEnabled(true); setFailed(false);
       if (el.error) el.load();
       el.play().catch((error) => {
         if (error.name === "AbortError") return;
@@ -85,15 +88,15 @@ export function SoundToggle() {
         console.error("Background music could not be played.", error); setFailed(true);
       });
     }
-    else { writeMuted(true); el.pause(); }
+    else { writeMuted(true); setEnabled(false); setWaiting(false); el.pause(); }
   }
 
-  const label = t(failed ? "music.retry" : playing ? "music.mute" : "music.play");
+  const label = t(failed ? "music.retry" : enabled ? "music.mute" : "music.play");
   return <>
     <audio ref={audio} src={SRC} loop preload="auto" />
-    <button ref={button} type="button" className={`sound-toggle${playing ? " is-playing" : ""}`} aria-pressed={playing} aria-label={label} title={waiting && !failed ? t("music.waiting") : label} onClick={toggle}>
+    <button ref={button} type="button" className={`sound-toggle${playing ? " is-playing" : ""}`} aria-pressed={enabled} aria-label={label} title={waiting && !failed ? t("music.waiting") : label} onClick={toggle}>
       <span className="eq" aria-hidden="true"><i /><i /><i /><i /></span>
-      <span className="sound-label" aria-hidden="true">{t(failed ? "music.unavailable" : playing ? "music.on" : "music.off")}</span>
+      <span className="sound-label" aria-hidden="true">{t(failed ? "music.unavailable" : enabled ? "music.on" : "music.off")}</span>
     </button>
     <span className="sr-only" role="status">{failed ? t("music.retry") : waiting ? t("music.waiting") : ""}</span>
   </>;
