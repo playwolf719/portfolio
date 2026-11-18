@@ -70,13 +70,18 @@ for (let k = 0; k < 260000; k++) {
 const depthAt = (u, v) => { const c = cell(u, v); return c >= 0 ? depth[c] : -1; };
 
 /* ---- wayfarer sunglasses fitted to the face ---- */
-const LENS = { x: 0.152, y: -0.05, a: 0.122, top: 0.056, bottom: 0.074 };
-const lensR = (u, v) => { const du = (Math.abs(u) - LENS.x) / LENS.a, dv = (v - LENS.y) / (v < LENS.y ? LENS.top : LENS.bottom); return Math.sqrt(Math.sqrt(du ** 4 + dv ** 4)); };
+// Oversized lenses; `lift` raises the outer corners so the frame sweeps up toward the temples.
+const LENS = { x: 0.166, y: -0.052, a: 0.142, top: 0.07, bottom: 0.094, lift: 0.014 };
+const lensR = (u, v) => {
+  const du = (Math.abs(u) - LENS.x) / LENS.a, w = v - LENS.y + LENS.lift * du, dv = w / (w < 0 ? LENS.top : LENS.bottom);
+  return Math.sqrt(Math.sqrt(du ** 4 + dv ** 4));
+};
 { // fit z = z0 - k·u² so the lenses clear the brow, cheekbones and nose bridge
   let best = null;
+  const reach = LENS.x + LENS.a + 0.03;
   for (let k = 0.6; k <= 3; k += 0.05) {
     let z0 = -Infinity;
-    for (let u = -0.3; u <= 0.3; u += 0.01) for (let v = LENS.y - LENS.top * 1.2; v <= LENS.y + LENS.bottom * 1.2; v += 0.01) {
+    for (let u = -reach; u <= reach; u += 0.01) for (let v = LENS.y - LENS.top * 1.2 - LENS.lift; v <= LENS.y + LENS.bottom * 1.2 + LENS.lift; v += 0.01) {
       const d = depthAt(u, v); if (d > -1) z0 = Math.max(z0, d + k * u * u + 0.03);
     }
     if (!best || z0 < best.z0) best = { z0, k };
@@ -99,7 +104,7 @@ for (const s of samples) {
   const diffuse = Math.max(0, nx * LIGHT[0] + ny * LIGHT[1] + nz * LIGHT[2]);
   const spec = Math.max(0, nx * HALF[0] + ny * HALF[1] + nz * HALF[2]) ** 30;
   let l = 0.04 + 0.9 * diffuse ** 1.3 + 0.45 * spec;
-  l *= 1 - 0.5 * gauss(u, 0, 0.17) * gauss(v, LENS.y + LENS.bottom + 0.035, 0.022); // cast shadow of the glasses
+  l *= 1 - 0.55 * gauss(u, 0, 0.2) * gauss(v, LENS.y + LENS.bottom + 0.03, 0.024); // cast shadow of the glasses
   l *= 1 - 0.9 * gauss(u, 0, 0.095) * gauss(v, lipSeam(u), 0.006);
   l *= 1 - 0.88 * nostrilMask(u, v);
   // Curvature from the depth grid: ridges (nose, lips, chin, brow) brighten, creases and cavities darken.
@@ -143,7 +148,7 @@ for (let k = 0; k < 12000; k++) {
 const [noseTris, noseArea] = surfaceRegion(-0.11, 0.11, -0.06, 0.23);
 for (let k = 0; k < 12000; k++) {
   const { u, v, z, nx, ny, nz } = sample(noseTris, noseArea);
-  if (z < 0.47 || nz < 0.15 || rnd() < nostrilMask(u, v)) continue;
+  if (z < 0.47 || nz < 0.15 || lensR(u, v) < 1.02 || rnd() < nostrilMask(u, v)) continue;
   const bridge = gauss(u, -0.012, 0.019) * gauss(v, 0.045, 0.07);
   const tip = gauss(u, -0.008, 0.032) * gauss(v, 0.14, 0.026);
   const wing = gauss(Math.abs(u), 0.065, 0.02) * gauss(v, 0.16, 0.028);
@@ -166,30 +171,30 @@ function curve(name, fn, count, zOf) {
 }
 const onLens = (u) => lensZ(u) + 0.006;
 const lensEdge = (sx, grow) => (s) => {
-  const a = s * Math.PI * 2, c = Math.cos(a), sn = Math.sin(a);
-  return [sx * LENS.x + LENS.a * grow * Math.sign(c) * Math.abs(c) ** 0.5, LENS.y + (sn < 0 ? LENS.top : LENS.bottom) * grow * Math.sign(sn) * Math.abs(sn) ** 0.5];
+  const a = s * Math.PI * 2, c = Math.cos(a), sn = Math.sin(a), du = grow * Math.sign(c) * Math.abs(c) ** 0.5;
+  return [sx * LENS.x + LENS.a * du, LENS.y - LENS.lift * sx * du + (sn < 0 ? LENS.top : LENS.bottom) * grow * Math.sign(sn) * Math.abs(sn) ** 0.5];
 };
 for (const sx of [-1, 1]) {
-  for (const grow of [1, 1.035, 1.07]) curve('frame', lensEdge(sx, grow), 70, onLens);
-  for (const grow of [1.11, 1.15]) curve('frame', (s) => lensEdge(sx, grow)(0.52 + s * 0.46), 34, onLens);
-  curve('frameHi', (s) => lensEdge(sx, 1.19)(0.52 + s * 0.46), 40, onLens);
+  for (const grow of [1, 1.035, 1.07]) curve('frame', lensEdge(sx, grow), 84, onLens);
+  for (const grow of [1.11, 1.15, 1.19]) curve('frame', (s) => lensEdge(sx, grow)(0.52 + s * 0.46), 42, onLens); // heavy brow bar
+  curve('frameHi', (s) => lensEdge(sx, 1.23)(0.52 + s * 0.46), 52, onLens);
   // Temple arm: from the outer hinge back along the side of the head.
-  const ox = LENS.x + LENS.a * 1.12, oy = LENS.y - LENS.top * 0.5;
+  const ox = LENS.x + LENS.a * 1.12, oy = LENS.y - LENS.top * 0.5 - LENS.lift * 1.12;
   let side = ox; while (depthAt(side + 0.01, oy) > lensZ(ox) - 0.25 && side < 0.5) side += 0.005;
   const sideZ = depthAt(side, oy) + 0.02;
   curve('frame', (s) => [sx * (ox + (side - ox) * s), oy + 0.01 * s], 16, (u) => lensZ(ox) - (lensZ(ox) - sideZ) * smooth(ox, side, Math.abs(u)));
-  for (let k = 0; k < 1400; k++) { // gradient tint: clear on top, smoky toward the bottom
-    const u = sx * LENS.x + (rnd() * 2 - 1) * LENS.a, v = LENS.y - LENS.top + rnd() * (LENS.top + LENS.bottom);
-    if (lensR(u, v) < 0.9 && rnd() < smooth(LENS.y - 0.01, LENS.y + LENS.bottom, v) ** 1.6 * 0.6) push('lensFill', u, v, lensZ(u) + 0.003);
+  for (let k = 0; k < 1900; k++) { // gradient tint: clear on top, smoky toward the bottom
+    const du = rnd() * 2 - 1, u = sx * LENS.x + du * LENS.a, w = -LENS.top + rnd() * (LENS.top + LENS.bottom), v = LENS.y + w - LENS.lift * sx * du;
+    if (lensR(u, v) < 0.9 && rnd() < smooth(-0.01, LENS.bottom, w) ** 1.6 * 0.6) push('lensFill', u, v, lensZ(u) + 0.003);
   }
-  for (const off of [-0.045, -0.02]) { // two static diagonal reflections
+  for (const off of [-0.052, -0.024]) { // two static diagonal reflections
     for (let t = -0.16; t <= 0.16; t += 0.004) {
       const u = sx * LENS.x + off * 0.866 + t * 0.5, v = LENS.y + off * 0.5 - t * 0.866;
       if (lensR(u, v) < 0.86) push('streak', u, v, lensZ(u) + 0.008);
     }
   }
 }
-for (const dy of [-0.04, -0.028, -0.016]) curve('frame', (s) => [(LENS.x - LENS.a * 0.95) * (s * 2 - 1), LENS.y + dy + 0.007 * Math.sin(Math.PI * s)], 10, onLens);
+for (const f of [0.72, 0.5, 0.28]) curve('frame', (s) => [(LENS.x - LENS.a * 0.95) * (s * 2 - 1), LENS.y + LENS.lift - LENS.top * f + 0.007 * Math.sin(Math.PI * s)], 10, onLens);
 
 /* ---- shuffle stipple pools, quantise and emit ---- */
 const LIMIT = { bright: 3600, mid: 2400, shadow: 700, stubble: 900, body: 900, rim: 450, edge: 1300, lensFill: 400, lips: 1000, lipHighlight: 600, nose: 900, noseHighlight: 700 };

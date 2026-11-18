@@ -7,7 +7,7 @@ export const TOP = PORTRAIT_TOP;
 
 /** Superellipse radius of the nearest lens: < 1 inside, 1 on the rim. */
 export function lensR(u, v) {
-  const du = (Math.abs(u) - LENS.x) / LENS.a, dv = (v - LENS.y) / (v < LENS.y ? LENS.top : LENS.bottom);
+  const du = (Math.abs(u) - LENS.x) / LENS.a, w = v - LENS.y + LENS.lift * du, dv = w / (w < 0 ? LENS.top : LENS.bottom);
   return Math.sqrt(Math.sqrt(du ** 4 + dv ** 4));
 }
 export const lensZ = (u) => LENS.z0 - LENS.k * u * u;
@@ -42,8 +42,8 @@ export function depthAt(u, v) {
 export const FACE_PLAN = [
   [['shadow', 0.32], ['stubble', 0.25], ['lensFill', 0.13], ['body', 0.3]],
   [['mid', 0.4], ['nose', 0.12], ['lips', 0.14], ['edge', 0.34]],
-  [['frame', 0.24], ['noseHighlight', 0.16], ['lipHighlight', 0.12], ['bright', 0.48]],
-  [['rim', 0.26], ['streak', 0.12], ['frameHi', 0.12], ['glint', 0.16], ['scan', 0.34]],
+  [['frame', 0.34], ['noseHighlight', 0.16], ['lipHighlight', 0.12], ['bright', 0.38]],
+  [['rim', 0.24], ['streak', 0.13], ['frameHi', 0.17], ['glint', 0.16], ['scan', 0.3]],
 ];
 
 /** Decode every static pool to Float32Array [u, v, z, …]. */
